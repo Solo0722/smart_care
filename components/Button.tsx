@@ -1,0 +1,22 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { Button, ButtonProps, LoaderScreen } from 'react-native-ui-lib'
+import { Font } from '@/constants/theme';
+
+type Props = ButtonProps & {
+    isLoading?: boolean;
+};
+const ButtonUI = (props: Props) => {
+    return (
+        <Button labelStyle={[styles.labelStyle, props.labelStyle]} borderRadius={props.borderRadius ?? 10} disabled={props.isLoading}  {...props} label={props.isLoading ? "Loading..." : props.label} />
+    )
+}
+
+export default ButtonUI
+
+const styles = StyleSheet.create({
+    labelStyle: {
+        fontFamily: Font.FontMedium,
+        fontSize: 12
+    }
+})
