@@ -108,8 +108,9 @@ export default function RootLayout() {
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="signin" options={{ headerTitle: "" }} />
-          <Stack.Screen name="email-verification" options={{ headerTitle: "" }} />
           <Stack.Screen name="signup" options={{ headerTitle: "" }} />
+          <Stack.Screen name="email-verification" options={{ headerTitle: "" }} />
+          <Stack.Screen name="profile-completion" options={{ headerTitle: "" }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

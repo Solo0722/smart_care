@@ -7,13 +7,13 @@ import { Font } from '@/constants/theme';
 type Props = TextFieldProps;
 const Input = (props: Props) => {
     return (
-        <TextField fieldStyle={[styles.inputField, props.fieldStyle]} style={[styles.inputText, props.style]} labelStyle={[styles.labelStyle, props.labelStyle]}  {...props} />
+        <TextField fieldStyle={[styles.inputField, props.fieldStyle]} style={[styles.inputText, props.style]} labelStyle={[styles.labelStyle, props.labelStyle]} placeholderTextColor={"#ccc"}  {...props} />
     )
 }
 
 export default Input
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     inputField: {
         backgroundColor: "#f9fafc",
         padding: 15,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     },
     inputText: {
         fontFamily: Font.FontRegular,
-        fontSize: 13
+        fontSize: 12
     },
 
     labelStyle: {

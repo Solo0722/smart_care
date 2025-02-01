@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import MainContent from '@/components/MainContent'
 import { colors, Font } from '@/constants/theme'
@@ -49,6 +49,7 @@ const Signin = () => {
                         {
                             formik.touched?.password && formik.errors?.password && <ErrorLabel>{formik.errors.password}</ErrorLabel>
                         }
+                        <Pressable><Text style={{ ...styles.footerText, textAlign: 'right', marginTop: 5, color: colors.PRIMARY }}>Forgot password?</Text></Pressable>
                     </FormControl>
                     <FormControl>
                         <ButtonUI label="Sign in" backgroundColor={colors.PRIMARY} onPress={formik.handleSubmit} />

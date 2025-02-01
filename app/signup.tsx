@@ -9,14 +9,13 @@ import { ErrorLabel, FormControl } from '@/components/Form'
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Iconify } from 'react-native-iconify';
-import { Link, useRouter } from 'expo-router'
+import { Link, router } from 'expo-router'
 
 const signupSchema = yup.object().shape({
     email: yup.string().email().required(),
 })
 
 const Signup = () => {
-    const router = useRouter();
     const formik = useFormik({
         validationSchema: signupSchema,
         initialValues: {

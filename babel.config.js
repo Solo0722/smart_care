@@ -6,7 +6,7 @@ module.exports = function (api) {
       [
         "react-native-iconify/babel",
         {
-          icons: ["logos:google-icon"],
+          icons: ["logos:google-icon", "solar:alt-arrow-down-outline"],
         },
       ],
       "react-native-reanimated/plugin",

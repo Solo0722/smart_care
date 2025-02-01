@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     },
     errorLabel: {
         color: "#ff0000",
-        marginTop: 2,
+        marginTop: 3,
         fontSize: 10
     }
 })
