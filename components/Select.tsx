@@ -36,14 +36,8 @@ const Select = (props: Props) => {
     };
     return (
         <Picker
-            renderInput={() => <Input {...props.pickerProps} trailingAccessory={<Iconify icon='solar:alt-arrow-down-outline' size={16} color={colors.ACCENT} />} />}
-            fieldStyle={[styles.inputField, props.pickerProps?.fieldStyle]}
-            style={[styles.inputText, props.pickerProps?.style]}
-            labelStyle={[styles.labelStyle, props.pickerProps?.labelStyle]} placeholderTextColor={"#ccc"}
-            mode={Picker.modes.SINGLE}
-
-            renderOverlay={renderDialog}
-
+            renderInput={(value, label) => <Input label={props.pickerProps?.label} value={label} placeholder={props.pickerProps?.placeholder} />}
+            // renderOverlay={renderDialog}
             {...props.pickerProps}
         />
     )

@@ -6,12 +6,14 @@ import { styles as SignUpStyles } from './signup';
 import { ErrorLabel, FormControl } from '@/components/Form';
 import Input from '@/components/Input';
 import ButtonUI from '@/components/Button';
-import { Link } from 'expo-router';
+import { Link, router, useNavigation } from 'expo-router';
 import Iconify from 'react-native-iconify';
 import { Form, useFormik } from 'formik';
 import { colors, Font } from '@/constants/theme';
 import Select from '@/components/Select';
-import { Picker } from 'react-native-ui-lib';
+import { DateTimePicker, Picker } from 'react-native-ui-lib';
+import moment from 'moment';
+import { resetNavigation } from '@/services/uiService';
 
 const schema = yup.object().shape({
     fullName: yup.string().required("Full Name is required"),
@@ -26,7 +28,7 @@ const schema = yup.object().shape({
 
 
 const ProfileCompletion = () => {
-
+    const navigation = useNavigation();
     const formik = useFormik({
         validationSchema: schema,
         initialValues: {
@@ -36,7 +38,7 @@ const ProfileCompletion = () => {
             password: '',
             confirmPassword: ''
         },
-        onSubmit: () => console.log("okay")
+        onSubmit: () => resetNavigation(navigation, [{ name: '(tabs)', key: "(tabs)" }])
     })
 
 
@@ -56,18 +58,6 @@ const ProfileCompletion = () => {
                         }
                     </FormControl>
                     <FormControl>
-                        <Input placeholder="**********" label='Your password' textContentType='newPassword' onChangeText={formik.handleChange('password')} onBlur={formik.handleBlur('password')} value={formik.values.password} secureTextEntry />
-                        {
-                            formik.touched?.password && formik.errors?.password && <ErrorLabel>{formik.errors.password}</ErrorLabel>
-                        }
-                    </FormControl>
-                    <FormControl>
-                        <Input placeholder="**********" label='Confirm password' textContentType='password' onChangeText={formik.handleChange('confirmPassword')} onBlur={formik.handleBlur('confirmPassword')} value={formik.values.confirmPassword} secureTextEntry />
-                        {
-                            formik.touched?.confirmPassword && formik.errors?.confirmPassword && <ErrorLabel>{formik.errors.confirmPassword}</ErrorLabel>
-                        }
-                    </FormControl>
-                    <FormControl>
                         <Select pickerProps={{
                             placeholder: "Select your gender",
                             label: "Your gender",
@@ -83,10 +73,35 @@ const ProfileCompletion = () => {
                             ],
                             mode: Picker.modes.SINGLE,
                             value: formik.values.gender,
-                            onChange: (value: string | undefined) => formik.setFieldValue('gender', value)
+                            onChange: (value) => formik.setFieldValue('gender', value as unknown as string)
                         }} />
                         {
                             formik.touched?.gender && formik.errors?.gender && <ErrorLabel>{formik.errors.gender}</ErrorLabel>
+                        }
+                    </FormControl>
+                    <FormControl>
+                        <DateTimePicker
+                            label='Your date of birth'
+                            migrateDialog
+                            containerStyle={{ marginVertical: 20 }}
+                            renderInput={({ value }) => <Input value={value} label={'Your date of birth'} placeholder={moment().format('MMM D, YYYY')} />}
+                            mode={"date"}
+                            onChange={(value: Date) => formik.setFieldValue('dateOfBirth', value)}
+                            dateTimeFormatter={(value: Date) =>
+                                moment(value).format('MMM D, YYYY')
+                            }
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <Input placeholder="**********" label='Your password' textContentType='newPassword' onChangeText={formik.handleChange('password')} onBlur={formik.handleBlur('password')} value={formik.values.password} secureTextEntry />
+                        {
+                            formik.touched?.password && formik.errors?.password && <ErrorLabel>{formik.errors.password}</ErrorLabel>
+                        }
+                    </FormControl>
+                    <FormControl>
+                        <Input placeholder="**********" label='Confirm password' textContentType='password' onChangeText={formik.handleChange('confirmPassword')} onBlur={formik.handleBlur('confirmPassword')} value={formik.values.confirmPassword} secureTextEntry />
+                        {
+                            formik.touched?.confirmPassword && formik.errors?.confirmPassword && <ErrorLabel>{formik.errors.confirmPassword}</ErrorLabel>
                         }
                     </FormControl>
                     <FormControl>

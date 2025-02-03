@@ -17,6 +17,7 @@ import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import '@/constants/rnuilibTheme';
 import { ThemeManager } from 'react-native-ui-lib';
+import { setNavbar } from '@/services/uiService';
 
 enableScreens();
 SplashScreen.preventAutoHideAsync();
@@ -57,6 +58,10 @@ export default function RootLayout() {
     return null;
   }
 
+  useEffect(() => {
+    setNavbar(undefined, true);
+  }, [])
+
   setCustomText({
     style: {
       fontFamily: Font.FontRegular,
@@ -84,8 +89,8 @@ export default function RootLayout() {
           screenOptions={{
             headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontFamily: Font.FontBold,
-              fontSize: 14,
+              fontFamily: Font.FontSemibold,
+              fontSize: 12,
               // @ts-ignore
               textTransform: 'capitalize',
             },
