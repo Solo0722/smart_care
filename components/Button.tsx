@@ -8,7 +8,7 @@ type Props = ButtonProps & {
 };
 const ButtonUI = (props: Props) => {
     return (
-        <Button labelStyle={[styles.labelStyle, props.labelStyle]} borderRadius={props.borderRadius ?? 10} disabled={props.isLoading}  {...props} label={props.isLoading ? "Loading..." : props.label} />
+        <Button {...props} labelStyle={[styles.labelStyle, props.labelStyle]} borderRadius={props.borderRadius ?? 10} disabled={props.isLoading} label={props.isLoading ? "Loading..." : props.label} />
     )
 }
 

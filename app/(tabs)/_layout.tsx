@@ -10,27 +10,32 @@ export default function TabLayout() {
   const screens = [
     {
       name: "index",
-      icon: "solar:home-smile-outline",
+      activeIcon: "solar:home-2-bold",
+      inactiveIcon: "solar:home-2-outline",
       label: "Home"
     },
     {
       name: "diagnose",
-      icon: "solar:stethoscope-outline",
+      activeIcon: "solar:stethoscope-bold",
+      inactiveIcon: "solar:stethoscope-outline",
       label: "Diagnose"
     },
     {
       name: "ai-chat",
-      icon: "solar:chat-line-outline",
+      activeIcon: "solar:chat-line-bold",
+      inactiveIcon: "solar:chat-line-outline",
       label: "AI Chat"
     },
     {
       name: "history",
-      icon: "solar:calendar-mark-outline",
+      activeIcon: "solar:calendar-mark-bold",
+      inactiveIcon: "solar:calendar-mark-outline",
       label: "History"
     },
     {
       name: "profile",
-      icon: "solar:user-outline",
+      activeIcon: "solar:user-bold",
+      inactiveIcon: "solar:user-outline",
       label: "Profile"
     }
   ]
@@ -72,16 +77,14 @@ export default function TabLayout() {
             alignItems: "center",
             justifyContent: "center",
             paddingTop: 10,
-            shadowColor: "#000", // Shadow color for iOS
-            shadowOffset: { width: 0, height: 4 }, // Shadow offset for iOS
-            shadowOpacity: 0.25, // Shadow opacity for iOS
-            shadowRadius: 10, // Shadow radius for iOS
-            elevation: 5, // Shadow elevation for Android
+            borderTopWidth: 0,
+            // backgroundColor: "red",
+            elevation: 10
           },
         }),
       }}>
       {
-        screens.map(scrn => <Tabs.Screen key={scrn.name} name={scrn.name} options={{ tabBarLabel: scrn.label, tabBarIcon: ({ focused }) => <Iconify icon={scrn.icon} color={focused ? colors.PRIMARY : colors.ACCENT} size={20} strokeWidth={focused ? 20 : 1} fontFamily={Font.FontMedium} /> }} />)
+        screens.map(scrn => <Tabs.Screen key={scrn.name} name={scrn.name} options={{ tabBarLabel: scrn.label, tabBarIcon: ({ focused }) => <Iconify icon={focused ? scrn.activeIcon : scrn.inactiveIcon} color={focused ? colors.PRIMARY : colors.ACCENT} size={20} strokeWidth={20} fontFamily={Font.FontMedium} /> }} />)
       }
     </Tabs>
   );

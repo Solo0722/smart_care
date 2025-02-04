@@ -2,12 +2,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import TextField from 'react-native-ui-lib/textField'
 import { TextFieldProps } from 'react-native-ui-lib'
-import { Font } from '@/constants/theme';
+import { colors, Font } from '@/constants/theme';
 
 type Props = TextFieldProps;
 const Input = (props: Props) => {
     return (
-        <TextField fieldStyle={[styles.inputField, props.fieldStyle]} style={[styles.inputText, props.style]} labelStyle={[styles.labelStyle, props.labelStyle]} placeholderTextColor={"#ccc"}  {...props} />
+        <TextField placeholderTextColor={"#ccc"}  {...props} fieldStyle={[styles.inputField, props.fieldStyle]} style={[styles.inputText, props.style]} labelStyle={[styles.labelStyle, props.labelStyle]} />
     )
 }
 
@@ -15,7 +15,7 @@ export default Input
 
 export const styles = StyleSheet.create({
     inputField: {
-        backgroundColor: "#f9fafc",
+        backgroundColor: colors.ACCENT_FOREGROUND,
         padding: 15,
         borderRadius: 10,
     },

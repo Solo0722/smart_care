@@ -42,23 +42,6 @@ export default function RootLayout() {
   }, [loaded]);
 
   useEffect(() => {
-    const components = ["Text", "TextInput", "Button", "Card", "TouchableOpacity"];
-
-    const globalFont = { fontFamily: Font.FontRegular };
-
-    components.forEach((component) => {
-      ThemeManager.setComponentTheme(component, {
-        style: globalFont,
-        labelStyle: globalFont,
-      });
-    });
-  }, []);
-
-  if (!loaded) {
-    return null;
-  }
-
-  useEffect(() => {
     setNavbar(undefined, true);
   }, [])
 
@@ -82,10 +65,14 @@ export default function RootLayout() {
     showsVerticalScrollIndicator: false,
   });
 
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <GestureHandlerRootView>
       <SafeAreaProvider>
-        <Stack initialRouteName='index'
+        <Stack initialRouteName='(tabs)'
           screenOptions={{
             headerTitleAlign: 'center',
             headerTitleStyle: {

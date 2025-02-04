@@ -15,7 +15,7 @@ const Welcome = () => {
                         <Image source={require('@/assets/images/doctor.jpeg')} style={styles.image} />
                     </View>
                 </View>
-                <Link href="/signup" asChild>
+                <Link href="/(tabs)" asChild>
                     <Button style={styles.button} center label="Get Started" labelStyle={styles.buttonText} />
                 </Link>
             </View>
