@@ -36,6 +36,7 @@ module.exports = function (api) {
             "solar:add-circle-bold",
             "solar:alt-arrow-right-outline",
             "solar:logout-3-outline",
+            "solar:plain-bold",
           ],
         },
       ],
