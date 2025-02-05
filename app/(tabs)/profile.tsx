@@ -51,7 +51,7 @@ const Profile = () => {
                     title: "Dark mode",
                     showTrailingAccessory: true,
                     icon: "solar:moon-outline",
-                    trailingAccessory: <Switch thumbColor={colors.PRIMARY} value={true} />
+                    trailingAccessory: <Switch style={{ backgroundColor: colors.PRIMARY }} value={true} />
                 }
             ]
         },
@@ -135,7 +135,7 @@ const Profile = () => {
                 sections={sectionList}
                 fadingEdgeLength={30}
                 SectionSeparatorComponent={({ leadingItem }) =>
-                    leadingItem ? ( // Only render if there's a leading item (i.e., not the first section)
+                    leadingItem ? (
                         <View
                             style={{
                                 height: 1,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     },
     emailText: {
         fontSize: 12,
-        color: colors.ACCENT
+        color: colors.ACCENT_2
     },
     itemTitle: {
         fontSize: 12

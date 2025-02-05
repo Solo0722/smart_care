@@ -1,10 +1,10 @@
 import { StyleSheet, TextProps, Text as TextUI, View } from 'react-native'
 import React from 'react'
-import { Font } from '@/constants/theme'
+import { colors, Font } from '@/constants/theme'
 
 const Text = (props: TextProps) => {
     return (
-        <TextUI  {...props} style={{ fontFamily: Font.FontRegular, ...props.style }}>{props.children}</TextUI>
+        <TextUI  {...props} style={{ fontFamily: Font.FontRegular, color: colors.FOREGROUND, ...props.style as object }}>{props.children}</TextUI>
     )
 }
 

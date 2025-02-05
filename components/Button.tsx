@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
-import { Button, ButtonProps, LoaderScreen } from 'react-native-ui-lib'
+import { Button, ButtonProps } from 'react-native-ui-lib'
 import { Font } from '@/constants/theme';
 
 type Props = ButtonProps & {

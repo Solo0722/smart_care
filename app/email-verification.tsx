@@ -47,11 +47,15 @@ const EmailVerification = () => {
                                 // containerStyle: styles.container,
                                 pinCodeContainerStyle: {
                                     borderColor: colors.ACCENT_2,
+                                    borderWidth: 2
                                 },
                                 pinCodeTextStyle: {
-                                    color: colors.ACCENT,
-                                    fontFamily: Font.FontRegular
+                                    color: colors.PRIMARY,
+                                    fontFamily: Font.FontBold
                                 },
+                                filledPinCodeContainerStyle: {
+                                    borderColor: colors.PRIMARY
+                                }
                                 // focusStickStyle: styles.focusStick,
                                 // focusedPinCodeContainerStyle: styles.activePinCodeContainer,
                             }}

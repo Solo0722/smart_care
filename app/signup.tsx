@@ -54,7 +54,7 @@ const Signup = () => {
                     <ButtonUI label="Continue with Google" outline style={{ borderColor: "#eee", backgroundColor: "#f9fafc" }} backgroundColor='#f9fafc' color='#666' children={<Iconify icon='logos:google-icon' style={{ marginRight: 10 }} size={16} />} />
                 </FormControl>
                 <FormControl>
-                    <Text style={styles.footerText}>Already have an account? <Link href="/signin" style={{ color: colors.PRIMARY }}>Log in</Link></Text>
+                    <Text style={styles.footerText}>Already have an account? <Link href="/signin" replace style={{ color: colors.PRIMARY }}>Log in</Link></Text>
                 </FormControl>
             </View>
         </MainContent>
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
     subText: {
         fontFamily: Font.FontRegular,
         fontSize: 12,
-        color: "#a09d9f",
+        color: colors.ACCENT_FOREGROUND,
         maxWidth: Dimensions.get('window').width * 0.8
     },
     formContainer: {

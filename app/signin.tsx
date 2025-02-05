@@ -66,7 +66,7 @@ const Signin = () => {
                     <ButtonUI label="Continue with Google" outline style={{ borderColor: "#eee", backgroundColor: "#f9fafc" }} backgroundColor='#f9fafc' color='#666' children={<Iconify icon='logos:google-icon' style={{ marginRight: 10 }} size={16} />} />
                 </FormControl>
                 <FormControl>
-                    <Text style={styles.footerText}>D'ont have an account? <Link href="/signup" style={{ color: colors.PRIMARY }}>Sign up</Link></Text>
+                    <Text style={styles.footerText}>D'ont have an account? <Link href="/signup" replace style={{ color: colors.PRIMARY }}>Sign up</Link></Text>
                 </FormControl>
             </View>
         </MainContent>

@@ -81,15 +81,6 @@ export default function RootLayout() {
               // @ts-ignore
               textTransform: 'capitalize',
             },
-            // headerLeft: ({ canGoBack, tintColor, href }) => {
-            //   return canGoBack && (
-            //     <Link href={'..'} asChild>
-            //       <TouchableOpacity style={{ marginLeft: 16 }}>
-            //         <Icon icon='solar:arrow-left-outline' color={tintColor} strokeWidth={20} />
-            //       </TouchableOpacity>
-            //     </Link>
-            //   )
-            // },
             headerShadowVisible: false,
             contentStyle: {
               backgroundColor: "#ffffff"
@@ -103,7 +94,8 @@ export default function RootLayout() {
           <Stack.Screen name="signup" options={{ headerTitle: "" }} />
           <Stack.Screen name="email-verification" options={{ headerTitle: "" }} />
           <Stack.Screen name="profile-completion" options={{ headerTitle: "" }} />
-          <Stack.Screen name="+not-found" />
+          <Stack.Screen name="successful-completion" options={{ headerTitle: "" }} />
+          <Stack.Screen name="+not-found" options={{ headerTitle: "" }} />
         </Stack>
         <StatusBar style="auto" />
       </SafeAreaProvider>

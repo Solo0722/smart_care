@@ -15,7 +15,7 @@ export default Input
 
 export const styles = StyleSheet.create({
     inputField: {
-        backgroundColor: colors.ACCENT_FOREGROUND,
+        backgroundColor: colors.ACCENT_BACKGROUND,
         padding: 15,
         borderRadius: 10,
     },
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     labelStyle: {
         fontFamily: Font.FontRegular,
         fontSize: 11,
-        // color: "#666",
+        color: colors.ACCENT_FOREGROUND,
         marginBottom: 5
     }
 })

@@ -9,10 +9,11 @@ export enum Font {
 }
 
 export const colors = {
-  PRIMARY: "#4C4DDC",
+  PRIMARY: "#13b8a7",
+  FOREGROUND: "#222A3D",
+  ACCENT_FOREGROUND: "#4B5363",
+  ACCENT_BACKGROUND: "#F3F4F6",
+  ACCENT_2: "#9AA2AC",
   WHITE: "#FFFFFF",
   BLACK: "#000000",
-  ACCENT_FOREGROUND: "#f7f7f7",
-  ACCENT: "#666",
-  ACCENT_2: "#EEE",
 };

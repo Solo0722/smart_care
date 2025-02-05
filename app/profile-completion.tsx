@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import MainContent from '@/components/MainContent';
 import { styles as SignUpStyles } from './signup';
@@ -14,11 +14,14 @@ import Select from '@/components/Select';
 import { DateTimePicker, Picker } from 'react-native-ui-lib';
 import moment from 'moment';
 import { resetNavigation } from '@/services/uiService';
+import CountryPicker, { CallingCode, CountryCode, Flag } from 'react-native-country-picker-modal';
 
 const schema = yup.object().shape({
     fullName: yup.string().required("Full Name is required"),
-    gender: yup.string().oneOf(['male', 'female']).required("Gender is required"),
-    dateOfBirth: yup.date().required("Date of birth is required"),
+    // gender: yup.string().oneOf(['male', 'female']).required("Gender is required"),
+    // dateOfBirth: yup.date().required("Date of birth is required"),
+    location: yup.string().notRequired(),
+    phoneNumber: yup.string().notRequired(),
     password: yup.string().required("Password is required"),
     confirmPassword: yup
         .string()
@@ -26,21 +29,41 @@ const schema = yup.object().shape({
         .required("Confirm Password is required"),
 });
 
+interface Country {
+    cca2: CountryCode;
+    callingCode: CallingCode[];
+    flag?: string;
+}
 
+//add location and phone number
 const ProfileCompletion = () => {
     const navigation = useNavigation();
+    const [country, setCountry] = useState<Country>({ callingCode: ['233'], cca2: 'GH' });
+    const [countryCodeModalVisibility, setCountryCodeModalVisibility] = useState<boolean>(false);
     const formik = useFormik({
         validationSchema: schema,
         initialValues: {
             fullName: '',
-            gender: '',
-            dateOfBirth: '',
+            location: '',
+            phoneNumber: '',
             password: '',
             confirmPassword: ''
         },
-        onSubmit: () => resetNavigation(navigation, [{ name: '(tabs)', key: "(tabs)" }])
+        onSubmit: () => {
+            // resetNavigation(navigation, [{ name: '(tabs)', key: "(tabs)" }])
+            router.push("/successful-completion")
+        }
     })
 
+    const renderCountryCode = () => (
+        <TouchableOpacity style={styles.countryCodeBtn} onPress={() => setCountryCodeModalVisibility(true)}>
+            <Flag countryCode={country.cca2} flagSize={26} />
+            <Text style={{ fontSize: 12, marginLeft: -10, marginRight: 5 }}>
+                +{country.callingCode[0]}
+            </Text>
+            <Iconify icon="solar:alt-arrow-down-bold" color={colors.ACCENT_2} size={14} />
+        </TouchableOpacity>
+    )
 
     return (
         <MainContent isPadded>
@@ -57,7 +80,20 @@ const ProfileCompletion = () => {
                             formik.touched?.fullName && formik.errors?.fullName && <ErrorLabel>{formik.errors.fullName}</ErrorLabel>
                         }
                     </FormControl>
+
                     <FormControl>
+                        <Input placeholder="New York City, USA" label='Your location (optional)' textContentType='location' onChangeText={formik.handleChange('location')} onBlur={formik.handleBlur('location')} value={formik.values.location} />
+                        {
+                            formik.touched?.location && formik.errors?.location && <ErrorLabel>{formik.errors.location}</ErrorLabel>
+                        }
+                    </FormControl>
+                    <FormControl>
+                        <Input leadingAccessory={renderCountryCode()} placeholder="599 999 999" label='Your phone number (optional)' textContentType='telephoneNumber' onChangeText={formik.handleChange('phoneNumber')} onBlur={formik.handleBlur('phoneNumber')} value={formik.values.phoneNumber} />
+                        {
+                            formik.touched?.phoneNumber && formik.errors?.phoneNumber && <ErrorLabel>{formik.errors.phoneNumber}</ErrorLabel>
+                        }
+                    </FormControl>
+                    {/* <FormControl>
                         <Select pickerProps={{
                             placeholder: "Select your gender",
                             label: "Your gender",
@@ -78,8 +114,8 @@ const ProfileCompletion = () => {
                         {
                             formik.touched?.gender && formik.errors?.gender && <ErrorLabel>{formik.errors.gender}</ErrorLabel>
                         }
-                    </FormControl>
-                    <FormControl>
+                    </FormControl> */}
+                    {/* <FormControl>
                         <DateTimePicker
                             label='Your date of birth'
                             migrateDialog
@@ -91,7 +127,7 @@ const ProfileCompletion = () => {
                                 moment(value).format('MMM D, YYYY')
                             }
                         />
-                    </FormControl>
+                    </FormControl> */}
                     <FormControl>
                         <Input placeholder="**********" label='Your password' textContentType='newPassword' onChangeText={formik.handleChange('password')} onBlur={formik.handleBlur('password')} value={formik.values.password} secureTextEntry />
                         {
@@ -109,10 +145,28 @@ const ProfileCompletion = () => {
                     </FormControl>
                 </FormControl>
             </View>
+            <CountryPicker
+                withAlphaFilter
+                withFlagButton={false}
+                withCallingCodeButton={false}
+                countryCode={country.cca2}
+                visible={countryCodeModalVisibility}
+                onClose={() => setCountryCodeModalVisibility(false)}
+                onSelect={setCountry}
+            />
         </MainContent>
     )
 }
 
 export default ProfileCompletion
 
-const styles = StyleSheet.create({ ...SignUpStyles })
+const styles = StyleSheet.create({
+    ...SignUpStyles, countryCodeBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingRight: 10,
+        marginLeft: -10
+        // gap: 2
+    }
+})
