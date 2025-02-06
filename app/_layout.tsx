@@ -96,6 +96,7 @@ export default function RootLayout() {
           <Stack.Screen name="profile-completion" options={{ headerTitle: "" }} />
           <Stack.Screen name="successful-completion" options={{ headerTitle: "" }} />
           <Stack.Screen name="+not-found" options={{ headerTitle: "" }} />
+          <Stack.Screen name="(health-assessment-setup)" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </SafeAreaProvider>

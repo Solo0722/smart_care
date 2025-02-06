@@ -5,9 +5,12 @@ import LottieView from 'lottie-react-native';
 import ButtonUI from '@/components/Button';
 import { colors, Font } from '@/constants/theme';
 import Text from '@/components/Text';
+import { resetNavigation } from '@/services/uiService';
+import { useNavigation } from 'expo-router';
 
 const SuccessfulCompletion = () => {
     const animation = useRef<LottieView>(null);
+    const navigation = useNavigation();
     return (
         <MainContent isPadded>
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 10 }}>
@@ -22,7 +25,7 @@ const SuccessfulCompletion = () => {
                     source={require('../assets/animations/success.json')}
                 />
                 <Text style={styles.text}>Yayy. You're all set. Now let's get to know some of your health info. Click the button below to continue</Text>
-                <ButtonUI label="Continue" backgroundColor={colors.PRIMARY} />
+                <ButtonUI label="Continue" backgroundColor={colors.PRIMARY} onPress={() => resetNavigation(navigation, [{ name: '(health-assessment-setup)', key: "(health-assessment-setup)" }])} />
             </View>
         </MainContent>
     )

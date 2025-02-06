@@ -39,6 +39,8 @@ module.exports = function (api) {
             "solar:plain-bold",
             "solar:alt-arrow-down-bold",
             "solar:arrow-right-bold",
+            "famicons:male",
+            "famicons:female",
           ],
         },
       ],

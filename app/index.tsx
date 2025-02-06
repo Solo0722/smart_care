@@ -19,7 +19,7 @@ const Welcome = () => {
                 <View style={styles.textContainer}>
                     <Text style={styles.headerText}>Welcome {"\n"}to SmartCare</Text>
                     <Text style={styles.subText}>Unlock the power of intelligent health metrics tailored just for you only</Text>
-                    <Link href="/signup" asChild>
+                    <Link href="/(health-assessment-setup)/medical-conditions" asChild>
                         <Button style={styles.button} center label="Get Started" labelStyle={styles.buttonText} />
                     </Link>
                 </View>

@@ -3978,10 +3978,10 @@ expo-asset@~11.0.2:
     invariant "^2.2.4"
     md5-file "^3.2.3"
 
-expo-blur@~14.0.1:
-  version "14.0.1"
-  resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-14.0.1.tgz#4bdbec43b5015891990e78d31d8ff2f1f5d27464"
-  integrity sha512-3Q6jFBLbY8n2vwk28ycUC+eIlVhnlqwkXUKk/Lfaj+SGV3AZMQyrixe7OYwJdUfwqETBrnYYMB6uNrJzOSbG+g==
+expo-blur@~14.0.3:
+  version "14.0.3"
+  resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-14.0.3.tgz#656d6b2442bfbbfb2a6608c6bc1151b29bce6698"
+  integrity sha512-BL3xnqBJbYm3Hg9t/HjNjdeY7N/q8eK5tsLYxswWG1yElISWZmMvrXYekl7XaVCPfyFyz8vQeaxd7q74ZY3Wrw==
 
 expo-constants@~17.0.0, expo-constants@~17.0.3:
   version "17.0.3"
@@ -7020,6 +7020,11 @@ react-native-otp-entry@^1.8.2:
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/react-native-otp-entry/-/react-native-otp-entry-1.8.2.tgz#f6ea8d05db7cdf0162901d237019f5c03e5ad19c"
   integrity sha512-Ergs1fNpyp69oSrQ3k/PoolBpuutXruwhQDnEmX4xT3RnaZyo9lvcRsj2FafHanbFvghn/v3WcFRGU/GIhIMqQ==
+
+react-native-reanimated-carousel@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated-carousel/-/react-native-reanimated-carousel-3.5.1.tgz#3605b9959ffc0aa1c6b8b8736d98f91f46e36b17"
+  integrity sha512-9BBQV6JAYSQm2lV7MFtT4mzapXmW4IZO6s38gfiJL84Jg23ivGB1UykcNQauKgtHyhtW2NuZJzItb1s42lM+hA==
 
 react-native-reanimated@~3.16.1:
   version "3.16.6"

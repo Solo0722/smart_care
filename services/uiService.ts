@@ -1,7 +1,8 @@
-import { Navigation } from "@/@types/types";
+import { ILayoutConfig, Navigation, TBaseConfig } from "@/@types/types";
 import { CommonActions, Route } from "@react-navigation/native";
 import { Platform } from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
+import { Extrapolation, interpolate } from "react-native-reanimated";
 export const resetNavigation = (
   navigation: Navigation,
   routes: Route<any, any>[]
@@ -22,3 +23,58 @@ export const setNavbar = async (color?: string, isTransparent?: boolean) => {
     await NavigationBar.setBorderColorAsync("#00000000");
   }
 };
+
+export function parallaxLayout(
+  baseConfig: TBaseConfig,
+  modeConfig: ILayoutConfig = {}
+) {
+  const { size, vertical } = baseConfig;
+  const {
+    parallaxScrollingOffset = 100,
+    parallaxScrollingScale = 0.8,
+    parallaxAdjacentItemScale = parallaxScrollingScale ** 2,
+  } = modeConfig;
+
+  return (value: number) => {
+    "worklet";
+    const translate = interpolate(
+      value,
+      [-1, 0, 1],
+      [-size + parallaxScrollingOffset, 0, size - parallaxScrollingOffset]
+    );
+
+    const zIndex = interpolate(
+      value,
+      [-1, 0, 1],
+      [0, size, 0],
+      Extrapolation.CLAMP
+    );
+
+    const scale = interpolate(
+      value,
+      [-1, 0, 1],
+      [
+        parallaxAdjacentItemScale,
+        parallaxScrollingScale,
+        parallaxAdjacentItemScale,
+      ],
+      Extrapolation.CLAMP
+    );
+
+    return {
+      transform: [
+        vertical
+          ? {
+              translateY: translate,
+            }
+          : {
+              translateX: translate,
+            },
+        {
+          scale,
+        },
+      ],
+      zIndex,
+    };
+  };
+}

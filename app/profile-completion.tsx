@@ -88,7 +88,7 @@ const ProfileCompletion = () => {
                         }
                     </FormControl>
                     <FormControl>
-                        <Input leadingAccessory={renderCountryCode()} placeholder="599 999 999" label='Your phone number (optional)' textContentType='telephoneNumber' onChangeText={formik.handleChange('phoneNumber')} onBlur={formik.handleBlur('phoneNumber')} value={formik.values.phoneNumber} />
+                        <Input leadingAccessory={renderCountryCode()} placeholder="599 999 999" label='Your phone number (optional)' textContentType='telephoneNumber' keyboardType="decimal-pad" onChangeText={formik.handleChange('phoneNumber')} onBlur={formik.handleBlur('phoneNumber')} value={formik.values.phoneNumber} />
                         {
                             formik.touched?.phoneNumber && formik.errors?.phoneNumber && <ErrorLabel>{formik.errors.phoneNumber}</ErrorLabel>
                         }
