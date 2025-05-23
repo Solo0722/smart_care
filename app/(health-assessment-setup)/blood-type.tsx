@@ -34,7 +34,7 @@ const BloodType = () => {
         initialValues: {
             bloodType: '',
         },
-        onSubmit: () => router.push("/(health-assessment-setup)/weight")
+        onSubmit: () => router.push("/(health-assessment-setup)/medical-conditions")
     })
 
     const bloodTypes: bloodTypeProps[] = [

@@ -26,7 +26,7 @@ const Gender = () => {
         initialValues: {
             gender: '',
         },
-        onSubmit: () => router.push("/(health-assessment-setup)/blood-type")
+        onSubmit: () => router.push("/(health-assessment-setup)/date-of-birth")
     })
 
     const genders: GenderProps[] = [

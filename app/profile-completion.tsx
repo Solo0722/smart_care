@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import * as yup from 'yup'
 import MainContent from '@/components/MainContent';
@@ -15,6 +15,7 @@ import { DateTimePicker, Picker } from 'react-native-ui-lib';
 import moment from 'moment';
 import { resetNavigation } from '@/services/uiService';
 import CountryPicker, { CallingCode, CountryCode, Flag } from 'react-native-country-picker-modal';
+import Text from '@/components/Text';
 
 const schema = yup.object().shape({
     fullName: yup.string().required("Full Name is required"),
@@ -50,14 +51,18 @@ const ProfileCompletion = () => {
             confirmPassword: ''
         },
         onSubmit: () => {
-            // resetNavigation(navigation, [{ name: '(tabs)', key: "(tabs)" }])
-            router.push("/successful-completion")
+            router.push({
+                pathname: "/successful-completion",
+                params: {
+                    routeName: "(health-assessment-setup)",
+                }
+            })
         }
     })
 
     const renderCountryCode = () => (
         <TouchableOpacity style={styles.countryCodeBtn} onPress={() => setCountryCodeModalVisibility(true)}>
-            <Flag countryCode={country.cca2} flagSize={26} />
+            <Flag countryCode={country.cca2} flagSize={26} withFlagButton={true} />
             <Text style={{ fontSize: 12, marginLeft: -10, marginRight: 5 }}>
                 +{country.callingCode[0]}
             </Text>
@@ -147,6 +152,7 @@ const ProfileCompletion = () => {
             </View>
             <CountryPicker
                 withAlphaFilter
+                withFlag
                 withFlagButton={false}
                 withCallingCodeButton={false}
                 countryCode={country.cca2}
@@ -166,7 +172,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingRight: 10,
-        marginLeft: -10
+        marginLeft: -10,
+        marginVertical: -5,
         // gap: 2
     }
 })

@@ -39,3 +39,17 @@ export type TParallaxModeProps = IComputedDirectionTypes<{
   mode?: "parallax";
   modeConfig?: ILayoutConfig;
 }>;
+
+export type HealthRegState = {
+  currentStep: number;
+  totalSteps: number;
+  data: {
+    gender: string;
+    dateOfBirth: string;
+    bloodType: string;
+    allergies: string[];
+    medicalConditions: string[];
+    weight: number;
+    medications: string[];
+  };
+};

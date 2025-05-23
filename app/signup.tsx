@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { Iconify } from 'react-native-iconify';
 import { Link, router } from 'expo-router'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const signupSchema = yup.object().shape({
     email: yup.string().email().required(),
@@ -23,6 +24,8 @@ const Signup = () => {
         },
         onSubmit: () => router.push("/email-verification")
     })
+
+    const insets = useSafeAreaInsets()
 
     return (
         <MainContent isPadded>

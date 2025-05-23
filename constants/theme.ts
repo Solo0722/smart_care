@@ -16,4 +16,9 @@ export const colors = {
   ACCENT_2: "#9AA2AC",
   WHITE: "#FFFFFF",
   BLACK: "#000000",
+
+  ORANGE: "#FE814B",
+  GREEN: "#9BB068",
+  BROWN: "#4B3425",
+  LIGHT_BG: "#F7F4F2",
 };

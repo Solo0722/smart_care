@@ -10,8 +10,8 @@ export default function TabLayout() {
   const screens = [
     {
       name: "index",
-      activeIcon: "solar:home-2-bold",
-      inactiveIcon: "solar:home-2-outline",
+      activeIcon: "solar:home-angle-bold",
+      inactiveIcon: "solar:home-angle-outline",
       label: "Home"
     },
     {
@@ -60,7 +60,7 @@ export default function TabLayout() {
           backgroundColor: colors.WHITE
         },
         tabBarActiveTintColor: colors.PRIMARY,
-        tabBarInactiveTintColor: colors.ACCENT,
+        tabBarInactiveTintColor: colors.ACCENT_FOREGROUND,
         tabBarLabelStyle: {
           fontFamily: Font.FontMedium,
           fontSize: 9
@@ -84,7 +84,7 @@ export default function TabLayout() {
         }),
       }}>
       {
-        screens.map(scrn => <Tabs.Screen key={scrn.name} name={scrn.name} options={{ tabBarLabel: scrn.label, tabBarIcon: ({ focused }) => <Iconify icon={focused ? scrn.activeIcon : scrn.inactiveIcon} color={focused ? colors.PRIMARY : colors.ACCENT} size={20} strokeWidth={20} fontFamily={Font.FontMedium} /> }} />)
+        screens.map(scrn => <Tabs.Screen key={scrn.name} name={scrn.name} options={{ tabBarLabel: scrn.label, tabBarIcon: ({ focused }) => <Iconify icon={focused ? scrn.activeIcon : scrn.inactiveIcon} color={focused ? colors.PRIMARY : colors.ACCENT_FOREGROUND} size={20} strokeWidth={20} fontFamily={Font.FontMedium} /> }} />)
       }
     </Tabs>
   );

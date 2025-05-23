@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { useMemo, useState } from 'react'
 import { styles as SignupStyles } from '../signup';
 import MainContent from '@/components/MainContent';
 import { ErrorLabel, FormControl } from '@/components/Form';
@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { diseases } from '@/shared/shared';
 import Text from '@/components/Text';
-import { GridList } from 'react-native-ui-lib';
+import { truncate } from 'lodash';
 
 export const medicalConditionsSchema = yup.object().shape({
     medicalConditions: yup.array().of(yup.string()).min(1).required(),
@@ -24,14 +24,30 @@ const MedicalConditions = () => {
         },
         onSubmit: () => router.push("/(health-assessment-setup)/allergies")
     })
+    console.log(formik.values.medicalConditions)
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const diseasesData = useMemo(() => {
+        return diseases.filter(data => data.filter(d => d.toLowerCase().includes(searchTerm.toLowerCase())).length > 0)
+    }, [searchTerm])
 
     const checkIsSelected = (item: string) => {
         return formik.values.medicalConditions.includes(item)
     }
 
+    const handleItemPress = (item: string) => {
+        console.log(item)
+        if (formik.values.medicalConditions.includes(item)) {
+            formik.setFieldValue('medicalConditions', formik.values.medicalConditions.filter((i) => i !== item))
+        } else {
+            formik.setFieldValue('medicalConditions', [...formik.values.medicalConditions, item])
+        }
+
+    }
+
     const renderItem = ({ item }: { item: string }) => (
-        <TouchableOpacity style={[styles.itemContainer, checkIsSelected(item) && styles.itemSelectedContainer]} key={item} onPress={() => formik.setFieldValue('medicalConditions', [...formik.values.medicalConditions, item])}>
-            <Text style={styles.subText}>{item}</Text>
+        <TouchableOpacity key={item} style={[styles.itemContainer, checkIsSelected(item) && styles.itemSelectedContainer]} onPress={() => handleItemPress(item)}>
+            <Text style={{ ...styles.subText, color: checkIsSelected(item) ? colors.PRIMARY : colors.ACCENT_FOREGROUND }}>{truncate(item, { length: 20 })}</Text>
         </TouchableOpacity>
     )
 
@@ -45,22 +61,24 @@ const MedicalConditions = () => {
                 <FormControl>
 
                     <FormControl>
-                        <FlatList
-                            data={diseases}
-                            horizontal
-                            keyExtractor={(_, index) => `col-${index}`}
-                            ItemSeparatorComponent={() => <View style={{ marginHorizontal: 7 }} />}
-                            // contentContainerStyle={{ alignItems: 'flex-start' }}
-                            renderItem={({ item }) => (
-                                <FlatList
-                                    data={item}
-                                    keyExtractor={(text) => text}
-                                    renderItem={renderItem}
-                                    contentContainerStyle={{ alignItems: 'flex-start', minWidth: 0 }}
-                                    ItemSeparatorComponent={() => <View style={{ marginVertical: 7 }} />}
-                                />
-                            )}
-                        />
+                        <ScrollView horizontal contentContainerStyle={{ alignItems: "center", justifyContent: "center" }} style={{ marginHorizontal: -20 }}>
+                            <View>
+                                {
+                                    diseasesData.map(data => (
+                                        <View key={data[0]} style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                                            {
+                                                data.flat(1).map((item, index) => (
+                                                    renderItem({ item })
+                                                ))
+                                            }
+                                        </View>
+                                    ))
+
+
+                                }
+
+                            </View>
+                        </ScrollView>
                         {
                             formik.touched?.medicalConditions && formik.errors?.medicalConditions && <ErrorLabel>{formik.errors.medicalConditions}</ErrorLabel>
                         }
@@ -70,7 +88,7 @@ const MedicalConditions = () => {
                     </FormControl>
                 </FormControl>
             </View>
-        </MainContent>
+        </MainContent >
     )
 }
 
@@ -78,13 +96,17 @@ export default MedicalConditions
 
 const styles = StyleSheet.create({
     ...SignupStyles, itemContainer: {
-        padding: 15,
-        borderRadius: 10,
-        width: "100%",
+        borderRadius: 12,
         backgroundColor: colors.ACCENT_BACKGROUND,
-        alignItems: 'flex-start'
-        // justifyContent: "center",
-        // alignItems: "center"
+        height: 48,
+        // width: 77,
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        margin: 4,
+        borderWidth: 1,
+        borderColor: colors.ACCENT_BACKGROUND
     },
     itemSelectedContainer: {
         borderWidth: 1,

@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         fontFamily: Font.FontSemibold,
     },
     listTitle: {
-        color: colors.ACCENT,
+        color: colors.ACCENT_FOREGROUND,
         fontSize: 11,
         marginBottom: 10
     }

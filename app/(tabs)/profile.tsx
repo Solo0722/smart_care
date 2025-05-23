@@ -139,7 +139,7 @@ const Profile = () => {
                         <View
                             style={{
                                 height: 1,
-                                backgroundColor: colors.ACCENT_FOREGROUND,
+                                backgroundColor: colors.ACCENT_BACKGROUND,
                                 marginVertical: 20,
                             }}
                         />

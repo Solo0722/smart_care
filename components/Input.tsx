@@ -16,7 +16,9 @@ export default Input
 export const styles = StyleSheet.create({
     inputField: {
         backgroundColor: colors.ACCENT_BACKGROUND,
-        padding: 15,
+        // padding: 15,
+        paddingHorizontal: 15,
+        paddingVertical: 14,
         borderRadius: 10,
     },
     inputText: {

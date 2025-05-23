@@ -1,29 +1,77 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MainContent from '@/components/MainContent'
-import { Image, StyleSheet, View } from 'react-native'
-import { Link } from 'expo-router'
-import { colors, Font } from '@/constants/theme'
-import { Button } from 'react-native-ui-lib'
+import { StatusBar, StyleSheet, View } from 'react-native'
+import { Font } from '@/constants/theme'
 import Text from '@/components/Text'
+import { healthQuotes } from '@/constants/constants'
+import Logo4 from '@/assets/images/logo4.svg'
+import Logo from '@/assets/svgs/Logo'
 
 const Welcome = () => {
 
-    return (
-        <MainContent isPadded>
-            <View style={styles.welcomeContainer}>
-                <View style={{ flex: 1, width: "100%", paddingVertical: 20, alignItems: "center", justifyContent: "center" }}>
-                    <View style={styles.imageContainer}>
-                        <Image source={require('@/assets/images/medical-kit.png')} style={styles.image} />
-                    </View>
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.headerText}>Welcome {"\n"}to SmartCare</Text>
-                    <Text style={styles.subText}>Unlock the power of intelligent health metrics tailored just for you only</Text>
-                    <Link href="/(health-assessment-setup)/medical-conditions" asChild>
-                        <Button style={styles.button} center label="Get Started" labelStyle={styles.buttonText} />
-                    </Link>
-                </View>
+    const [screenShake, setScreenShake] = React.useState(true);
+    const [currentQuote, setCurrentQuote] = React.useState(0);
+
+    // React.useEffect(() => {
+    //     const shakeListener = () => {
+    //         setScreenShake(true);
+    //         setTimeout(() => {
+    //             setScreenShake(false);
+    //         }, 2000);
+    //     };
+
+    //     const subscription = DeviceMotion.addListener(shakeListener);
+
+    //     return () => {
+    //         subscription.remove();
+    //     };
+    // }, []);
+
+    useEffect(() => {
+
+        StatusBar.setBackgroundColor(screenShake ? "#FE814B" : "#9BB068");
+        StatusBar.setTranslucent(true);
+        StatusBar.setBarStyle("light-content");
+        StatusBar.setHidden(false);
+
+        const shakeListener = () => {
+            setScreenShake(true);
+            setTimeout(() => {
+                setScreenShake(false);
+            }, 2000);
+        };
+
+        const interval = setInterval(() => {
+            setCurrentQuote((prev) => (prev + 1) % healthQuotes.length);
+        }, 5000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [screenShake, currentQuote])
+
+    const renderQuotes = () => {
+        return (
+            <View style={styles.quoteContainer}>
+                {/* <Logo4 width={64} height={64} /> */}
+                <Logo />
+                <Text style={styles.quote}>{healthQuotes[currentQuote].quote}</Text>
+                <Text style={styles.quoteAuthor}>- {healthQuotes[currentQuote].author}</Text>
             </View>
+        )
+    }
+
+    const renderFetchingData = () => {
+        return (
+            <View style={styles.textContainer}>
+                <Text style={styles.topText}>Fetching data...</Text>
+                <Text style={styles.bottomText}>Shake your screen to interact!</Text>
+            </View>
+        )
+    }
+    return (
+        <MainContent isPadded style={{ ...styles.mainContent, backgroundColor: screenShake ? "#FE814B" : "#9BB068" }}>
+            {screenShake ? renderQuotes() : renderFetchingData()}
         </MainContent>
     )
 }
@@ -31,52 +79,56 @@ const Welcome = () => {
 export default Welcome
 
 const styles = StyleSheet.create({
-    welcomeContainer: {
+    mainContent: {
         flex: 1,
         width: "100%",
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 32
-    },
-    imageContainer: {
-        width: "100%",
-        marginTop: 40
-        // height: 350,
-    },
-    image: {
-        width: "100%",
-        height: "100%",
-        objectFit: "contain"
-    },
-    headerText: {
-        fontSize: 30,
-        fontFamily: Font.FontBold,
-        lineHeight: 38,
-        letterSpacing: -0.9,
-        textAlign: "center"
-    },
-    subText: {
-        fontSize: 14,
-        lineHeight: 25.6,
-        letterSpacing: -0.2,
-        textAlign: "center",
-        fontFamily: Font.FontRegular,
-        color: colors.ACCENT_FOREGROUND
+        backgroundColor: "#9BB068"
     },
     textContainer: {
-        gap: 20,
+        gap: 12,
         width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    topText: {
+        fontSize: 36,
+        fontFamily: Font.FontBold,
+        lineHeight: 44,
+        letterSpacing: 1.08,
+        textAlign: "center",
+        color: "#fff",
+    },
+    bottomText: {
+        fontSize: 18,
+        fontFamily: Font.FontRegular,
+        lineHeight: 28.8,
+        letterSpacing: -0.18,
+        textAlign: "center",
+        color: "#fff",
+    },
+    quoteContainer: {
+        gap: 48,
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
 
     },
-    button: {
-        backgroundColor: colors.PRIMARY,
-        padding: 200,
-        height: 60,
-        borderRadius: 16,
-        width: "100%"
+    quote: {
+        fontSize: 24,
+        fontFamily: Font.FontBold,
+        lineHeight: 32,
+        letterSpacing: -0.48,
+        color: "#fff",
+        textAlign: "center",
+
     },
-    buttonText: {
-        fontFamily: Font.FontMedium,
+    quoteAuthor: {
+        fontSize: 14,
+        fontFamily: Font.FontBold,
+        letterSpacing: 1.4,
+        textAlign: "center",
+        color: "#fff",
     }
-
 })

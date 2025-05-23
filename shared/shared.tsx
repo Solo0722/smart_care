@@ -63,3 +63,11 @@ export const diseases = [
         "Obsessive-Compulsive Disorder (OCD)",
     ], // Mental Health Disorders
 ];
+
+export const allergies = [
+    ["Peanuts", "Tree nuts", "Soy", "Milk", "Eggs", "Wheat", "Fish", "Shellfish"], // Food allergies
+    ["Pollen", "Dust mites", "Mold", "Pet dander", "Grass", "Ragweed"], // Environmental allergies
+    ["Penicillin", "Aspirin", "Ibuprofen", "Sulfa drugs", "Antibiotics"], // Drug allergies
+    ["Latex", "Nickel", "Fragrances", "Detergents", "Dyes", "Cosmetics"], // Contact allergies
+    ["Bee stings", "Wasp stings", "Fire ant bites"], // Insect allergies
+];
