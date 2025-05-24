@@ -36,7 +36,7 @@ const Welcome = () => {
                 <Toy />
                 <ButtonUI label='Get Started' backgroundColor={"#4B3425"} iconOnRight children={<Iconify icon="solar:arrow-right-bold" color={colors.WHITE} size={20} style={{ position: "absolute", right: 24 }} />} style={{ paddingHorizontal: 24, paddingVertical: 16, borderRadius: 1000 }} labelStyle={{ marginRight: 24, fontSize: 14, fontFamily: Font.FontBold }} onPress={() => router.push("/onboarding")} />
             </View>
-            <Text style={styles.footerText}>Already have an account? <Link href="/signin" replace style={{ color: colors.ORANGE }}>Sign in</Link></Text>
+            <Text style={styles.footerText}>Already have an account? <Link href="/signin" style={{ color: colors.ORANGE }}>Sign in</Link></Text>
         </MainContent>
     )
 }
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     footerText: {
         fontSize: 14,
-        fontFamily: Font.FontRegular,
+        fontFamily: Font.FontBold,
         lineHeight: 28.8,
         letterSpacing: -0.18,
         textAlign: "center",

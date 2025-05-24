@@ -75,7 +75,7 @@ export default function RootLayout() {
     <GestureHandlerRootView>
       <Provider store={store}>
 
-        <SafeAreaProvider style={{ paddingTop: insets.top }}>
+        <SafeAreaProvider>
 
           <Stack initialRouteName='welcome'
             screenOptions={{
@@ -97,8 +97,8 @@ export default function RootLayout() {
             <Stack.Screen name="welcome" options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="signin" options={{ headerTitle: "" }} />
-            <Stack.Screen name="signup" options={{ headerTitle: "" }} />
+            <Stack.Screen name="signin" options={{ headerShown: false }} />
+            <Stack.Screen name="signup" options={{ headerShown: false }} />
             <Stack.Screen name="email-verification" options={{ headerTitle: "" }} />
             <Stack.Screen name="profile-completion" options={{ headerTitle: "" }} />
             <Stack.Screen name="successful-completion" options={{ headerTitle: "" }} />

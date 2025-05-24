@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 12,
         position: "absolute",
-        top: 32,
+        top: 50,
         zIndex: 100000,
     },
     onboardingContainer: {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         height: 12,
         borderRadius: 1234,
         backgroundColor: "transparent",
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: colors.BROWN,
         alignItems: 'center',
         justifyContent: 'center',

@@ -14,11 +14,11 @@ export const ErrorLabel = (props: TextProps) => (
 
 const styles = StyleSheet.create({
     formControl: {
-        marginVertical: 10
+        // marginVertical: 10
     },
     errorLabel: {
         color: "#ff0000",
-        marginTop: 3,
+        marginTop: 5,
         fontSize: 10
     }
 })

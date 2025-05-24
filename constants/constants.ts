@@ -115,3 +115,24 @@ export const onboardingSteps = [
     textsToHighlight: ["community"],
   },
 ];
+
+export const oAuths = [
+  {
+    id: 1,
+    name: "Google",
+    icon: "logos:google-icon",
+    onPress: () => null,
+  },
+  {
+    id: 2,
+    name: "Facebook",
+    icon: "logos:google-icon",
+    onPress: () => null,
+  },
+  {
+    id: 3,
+    name: "Apple",
+    icon: "logos:google-icon",
+    onPress: () => null,
+  },
+];
