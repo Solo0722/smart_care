@@ -120,19 +120,19 @@ export const oAuths = [
   {
     id: 1,
     name: "Google",
-    icon: "logos:google-icon",
+    icon: "flowbite:facebook-solid",
     onPress: () => null,
   },
   {
     id: 2,
     name: "Facebook",
-    icon: "logos:google-icon",
+    icon: "flowbite:google-solid",
     onPress: () => null,
   },
   {
     id: 3,
     name: "Apple",
-    icon: "logos:google-icon",
+    icon: "flowbite:instagram-solid",
     onPress: () => null,
   },
 ];

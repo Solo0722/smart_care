@@ -77,7 +77,7 @@ export default function RootLayout() {
 
         <SafeAreaProvider>
 
-          <Stack initialRouteName='welcome'
+          <Stack initialRouteName='avatar-setup'
             screenOptions={{
               headerTitleAlign: 'center',
               headerTitleStyle: {
@@ -96,6 +96,9 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="welcome" options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="avatar-setup" options={{ headerShown: false }} />
+            <Stack.Screen name="profile-setup" options={{ headerShown: false }} />
+            <Stack.Screen name="signup-completion" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="signin" options={{ headerShown: false }} />
             <Stack.Screen name="signup" options={{ headerShown: false }} />

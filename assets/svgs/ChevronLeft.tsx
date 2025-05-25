@@ -1,0 +1,16 @@
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import Svg, { Path } from 'react-native-svg'
+
+const ChevronLeft = ({ color }: { color: string }) => {
+    return (
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <Path d="M15.6706 3.30667C13.7569 3.81944 12.0659 4.94935 10.8598 6.52115C9.65374 8.09294 9 10.0188 9 12C9 13.9812 9.65374 15.9071 10.8598 17.4789C12.0659 19.0507 13.7569 20.1806 15.6706 20.6933" stroke={color ?? "white"} strokeWidth="2" strokeLinejoin="round" />
+        </Svg>
+
+    )
+}
+
+export default ChevronLeft
+
+const styles = StyleSheet.create({})

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import MainContent from '@/components/MainContent'
 import { colors, Font } from '@/constants/theme'
 import Text from '@/components/Text';
-import { styles as SignUpStyles } from './signup';
+
 import { ErrorLabel, FormControl } from '@/components/Form';
 import Input from '@/components/Input';
 import ButtonUI from '@/components/Button';
@@ -21,6 +21,7 @@ const signinSchema = yup.object().shape({
 })
 
 const Signin = () => {
+    const [showPassword, setShowPassword] = React.useState(false);
 
     useEffect(() => {
         StatusBar.setBackgroundColor(colors.GREEN);
@@ -41,56 +42,19 @@ const Signin = () => {
 
 
     return (
-        // <MainContent isPadded>
-        //     <View style={styles.header}>
-        //         <Text style={styles.headerText}>Sign in</Text>
-        //         <Text style={styles.subText}>Sign in to create an account and get started.Sign up to get started.</Text>
-        //     </View>
-        //     <View style={styles.formContainer}>
-        //         <FormControl>
-
-        //             <FormControl>
-        //                 <Input placeholder="johndoe@gmail.com" label='Your email' textContentType='emailAddress' onChangeText={formik.handleChange('email')} onBlur={formik.handleBlur('email')} value={formik.values.email} />
-        //                 {
-        //                     formik.touched?.email && formik.errors?.email && <ErrorLabel>{formik.errors.email}</ErrorLabel>
-        //                 }
-        //             </FormControl>
-        //             <FormControl>
-        //                 <Input placeholder="**********" label='Your password' textContentType='password' onChangeText={formik.handleChange('password')} onBlur={formik.handleBlur('password')} value={formik.values.password} secureTextEntry />
-        //                 {
-        //                     formik.touched?.password && formik.errors?.password && <ErrorLabel>{formik.errors.password}</ErrorLabel>
-        //                 }
-        //                 <Pressable><Text style={{ ...styles.footerText, textAlign: 'right', marginTop: 5, color: colors.PRIMARY }}>Forgot password?</Text></Pressable>
-        //             </FormControl>
-        //             <FormControl>
-        //                 <ButtonUI label="Sign in" backgroundColor={colors.PRIMARY} onPress={formik.handleSubmit} />
-        //             </FormControl>
-        //         </FormControl>
-        //         <FormControl>
-        //             <View style={styles.dividerContainer}>
-        //                 <View style={styles.separator} />
-        //                 <Text style={{ fontFamily: Font.FontRegular }}>or</Text>
-        //                 <View style={styles.separator} />
-        //             </View>
-        //         </FormControl>
-        //         <FormControl>
-        //             <ButtonUI label="Continue with Google" outline style={{ borderColor: "#eee", backgroundColor: "#f9fafc" }} backgroundColor='#f9fafc' color='#666' children={<Iconify icon='logos:google-icon' style={{ marginRight: 10 }} size={16} />} />
-        //         </FormControl>
-        //         <FormControl>
-        //             <Text style={styles.footerText}>D'ont have an account? <Link href="/signup" replace style={{ color: colors.PRIMARY }}>Sign up</Link></Text>
-        //         </FormControl>
-        //     </View>
-        // </MainContent>
         <MainContent style={{ backgroundColor: colors.LIGHT_BG, paddingBottom: 20 }}>
             <FreudArc />
             <View style={styles.mainContainer}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.headerText}>Sign in to freud.ai</Text>
-                    <Text style={styles.subHeaderText}>Sign in to create an account and get started.</Text>
+                    <Text style={styles.subHeaderText}>Sign in to continue from where you left off.</Text>
                 </View>
                 <View style={styles.formContainer}>
                     <FormControl>
                         <Input
+                            leadingAccessory={
+                                <Iconify icon="solar:letter-outline" style={{ marginRight: 10 }} size={16} color={colors.BROWN} />
+                            }
                             placeholder="johndoe@gmail.com"
                             label='Email Address' textContentType='emailAddress'
                             onChangeText={formik.handleChange('email')}
@@ -119,13 +83,23 @@ const Signin = () => {
                     </FormControl>
                     <FormControl>
                         <Input
+                            leadingAccessory={
+                                <Iconify icon="solar:lock-keyhole-outline" style={{ marginRight: 10 }} size={16} color={colors.BROWN} />
+                            }
+                            trailingAccessory={
+                                <Pressable onPress={() => setShowPassword(!showPassword)}>
+                                    <Iconify icon={showPassword ? "solar:eye-closed-outline" : "solar:eye-outline"} size={16} color={colors.BROWN} />
+                                </Pressable>
+                            }
                             placeholder="**********"
                             label='Password'
                             textContentType='password'
                             onChangeText={formik.handleChange('password')}
                             onBlur={formik.handleBlur('password')}
                             value={formik.values.password}
-                            secureTextEntry
+                            secureTextEntry={!showPassword}
+                            cursorColor={colors.BROWN}
+                            placeholderTextColor={hexToRGBA(colors.BROWN, 0.64)}
                             labelStyle={styles.inputLabel}
                             fieldStyle={styles.input}
                             dynamicFieldStyle={({ isFocused }) => ({
@@ -185,7 +159,7 @@ const Signin = () => {
 
 export default Signin
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     // ...SignUpStyles,
     mainContainer: {
         flex: 1,

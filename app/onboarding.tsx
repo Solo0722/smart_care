@@ -7,6 +7,7 @@ import { onboardingSteps } from '@/constants/constants'
 import Svg, { Path } from 'react-native-svg'
 import Text from '@/components/Text'
 import ButtonUI from '@/components/Button'
+import { router } from 'expo-router'
 
 const height = 100;
 const { width } = Dimensions.get('window');
@@ -26,6 +27,9 @@ const Onboarding = () => {
     const onNext = () => {
         if (currentStep < totalSteps - 1) {
             setCurrentStep(currentStep + 1);
+        }
+        else {
+            router.push("/signup");
         }
     }
 
