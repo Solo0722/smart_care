@@ -11,6 +11,7 @@ import { ErrorLabel, FormControl } from '@/components/Form'
 import Input from '@/components/Input'
 import { styles as SigninStyles } from '@/app/signin'
 import ButtonUI from '@/components/Button'
+import { router } from 'expo-router'
 
 export const profileSetupSchema = yup.object().shape({
     fullName: yup.string().required(),
@@ -29,7 +30,7 @@ const ProfileSetup = () => {
             location: '',
             dateOfBirth: ''
         },
-        onSubmit: () => console.log("okay")
+        onSubmit: () => router.push("/signup-completion")
     })
 
     useEffect(() => {

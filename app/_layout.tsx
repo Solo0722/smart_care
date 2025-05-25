@@ -77,7 +77,7 @@ export default function RootLayout() {
 
         <SafeAreaProvider>
 
-          <Stack initialRouteName='avatar-setup'
+          <Stack initialRouteName='welcome'
             screenOptions={{
               headerTitleAlign: 'center',
               headerTitleStyle: {

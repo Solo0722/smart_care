@@ -41,7 +41,7 @@ const Signup = () => {
             password: '',
             termsAccepted: false
         },
-        onSubmit: () => router.push("/email-verification")
+        onSubmit: () => router.push("/profile-setup")
     })
 
     return (

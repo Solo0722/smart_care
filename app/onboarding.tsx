@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
         zIndex: 100000,
     },
     onboardingContainer: {
+        paddingTop: 50,
         flex: 1
     },
     dot: {
