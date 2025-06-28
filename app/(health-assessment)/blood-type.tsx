@@ -1,165 +1,201 @@
-import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { ProgressBar } from '@/components/ProgressBar'
-import { colors, Font } from '@/constants/theme'
-import MainContent from '@/components/MainContent'
-import Text from '@/components/Text'
-import ProfileArc from '@/assets/images/profile-arc.svg'
-import * as yup from 'yup'
-import { router } from 'expo-router'
-import { useFormik } from 'formik'
-import Animated, { SharedValue, useAnimatedStyle, interpolate, useSharedValue } from 'react-native-reanimated'
-import { ErrorLabel, FormControl } from '@/components/Form'
-import Carousel from 'react-native-reanimated-carousel'
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { styles as WeightAssessmentStyles } from "./index";
+import { ProgressBar } from "@/components/ProgressBar";
+import MainContent from "@/components/MainContent";
+import { colors, Font } from "@/constants/theme";
+import ButtonUI from "@/components/Button";
+import Iconify from "react-native-iconify";
+import { Link, router } from "expo-router";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { hexToRGBA } from "@/services/uiService";
 
 type bloodTypeProps = {
-    label: string,
-    subText: string,
-    value: string
-}
+  label: string;
+  subText: string;
+  value: string;
+};
 
-const WINDOW_WIDTH = Dimensions.get("window").width;
-
+const bloodTypes: bloodTypeProps[] = [
+  { label: "A-", subText: "-", value: "a-" },
+  { label: "A+", subText: "+", value: "a+" },
+  { label: "B-", subText: "-", value: "b-" },
+  { label: "B+", subText: "+", value: "b+" },
+  { label: "O-", subText: "-", value: "o-" },
+  { label: "O+", subText: "+", value: "o+" },
+  { label: "AB-", subText: "-", value: "ab-" },
+  { label: "AB+", subText: "+", value: "ab+" },
+];
+const bloodTypeLetters = ["A", "B", "O", "AB"];
 export const bloodTypeSchema = yup.object().shape({
-    bloodType: yup.string().oneOf(['a-', 'a+', 'b-', 'b+', 'o-', 'o+', 'ab-', 'ab+']).required(),
-})
+  bloodType: yup
+    .string()
+    .oneOf(["a-", "a+", "b-", "b+", "o-", "o+", "ab-", "ab+"])
+    .required(),
+});
 
+const BloodType = () => {
+  const [selectedBloodTypeLetter, setSelectedBloodTypeLetter] =
+    React.useState<string>("A");
+  const [selectedBloodTypeSubText, setSelectedBloodTypeSubText] =
+    React.useState<string>("+");
+  const formik = useFormik({
+    validationSchema: bloodTypeSchema,
+    initialValues: {
+      bloodType: "",
+    },
+    onSubmit: () =>
+      router.push("/(health-assessment-setup)/medical-conditions"),
+  });
 
-const BloodTypeAssessment = () => {
-
-    const formik = useFormik({
-        validationSchema: bloodTypeSchema,
-        initialValues: {
-            bloodType: '',
-        },
-        onSubmit: () => router.push("/(health-assessment-setup)/medical-conditions")
-    })
-
-    const bloodTypes: bloodTypeProps[] = [
-        { label: "A-", subText: "-", value: "a-" },
-        { label: "A+", subText: "+", value: "a+" },
-        { label: "B-", subText: "-", value: "b-" },
-        { label: "B+", subText: "+", value: "b+" },
-        { label: "O-", subText: "-", value: "o-" },
-        { label: "O+", subText: "+", value: "o+" },
-        { label: "AB-", subText: "-", value: "ab-" },
-        { label: "AB+", subText: "+", value: "ab+" },
-    ]
-
-    const renderbloodTypeItem = (bloodType: bloodTypeProps, animationValue: SharedValue<number>) => {
-        const animatedStyle = useAnimatedStyle(() => {
-            const scale = interpolate(animationValue.value, [-1, 0, 1], [0.8, 1, 0.8]);
-            return { transform: [{ scale }] };
-        });
-        return <Animated.View style={[styles.bloodTypeItemContainer, animatedStyle, bloodType.value === formik.values.bloodType && styles.bloodTypeItemSelectedContainer]} key={bloodType.value}
-        >
-            <TouchableOpacity onPress={() => formik.setFieldValue('bloodType', bloodType.value)}
-            >
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.bloodTypeText}>{bloodType.label.substring(0, bloodType.label.length - 1)}</Text>
-                    <Text style={{
-                        color: "#F43F5E", fontSize: 50, fontFamily: Font.FontBold, marginTop: 20
-                    }}>{bloodType.subText}</Text>
-                </View>
-            </TouchableOpacity>
-        </Animated.View>
-    }
-    const progress = useSharedValue<number>(0);
-
-
-    return (
-        <MainContent
-            isPadded
-            isSafeArea
-            style={{ backgroundColor: colors.LIGHT_BG, flex: 1 }}
-            showTopNav
-            showTitle
-            title={"Assessment"}
-            backBtnIconColor={colors.WHITE} backBtnStyle={{ borderColor: colors.WHITE }} titleStyle={{ color: colors.WHITE }}
-            showBackButton
-            toolbar={<ProgressBar currentStep={2} totalSteps={7} />}
-        >
-            <ProfileArc style={{ width: "100%", position: "absolute", top: 0, left: 0 }} />
-            <View style={styles.bloodTypeAssessmentContainer}>
-                <Text style={styles.headerText}>What's your official blood type?</Text>
-                <FormControl>
-                    <View style={styles.formItemContainer}>
-                        <Carousel
-                            loop={true}
-                            style={{
-                                width: WINDOW_WIDTH,
-                                height: 240,
-                                marginLeft: -20,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                            width={WINDOW_WIDTH / 2}
-                            data={bloodTypes}
-                            renderItem={({ item, index, animationValue }) => {
-                                return (
-                                    renderbloodTypeItem(item, animationValue)
-                                );
-                            }}
-                        />
-                    </View>
-
-                    {
-                        formik.touched?.bloodType && formik.errors?.bloodType && <ErrorLabel>{formik.errors.bloodType}</ErrorLabel>
-                    }
-                </FormControl>
+  return (
+    <MainContent
+      isPadded
+      isSafeArea
+      style={{ backgroundColor: colors.WHITE, flex: 1 }}
+      showTopNav
+      showTitle
+      title={"Assessment"}
+      // backBtnIconColor={colors.WHITE} backBtnStyle={{ borderColor: colors.WHITE }} titleStyle={{ color: colors.WHITE }}
+      showBackButton
+      toolbar={<ProgressBar currentStep={2} totalSteps={7} />}
+    >
+      <View style={styles.weightAssessmentContainer}>
+        <Text style={styles.headerText}>What's your official blood type?</Text>
+        <View style={styles.weightPickerContainer}>
+          <View style={styles.weightUnitsContainer}>
+            {bloodTypeLetters.map((bloodType, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  ...styles.weightUnitItem,
+                  backgroundColor:
+                    bloodType === selectedBloodTypeLetter
+                      ? colors.WHITE
+                      : "transparent",
+                }}
+                onPress={() => setSelectedBloodTypeLetter(bloodType)}
+              >
+                <Text style={styles.weightUnitItemText}>
+                  {bloodType.toUpperCase()}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <View style={styles.weightDisplayAndInputContainer}>
+            <View style={styles.weightDisplayContainer}>
+              <Text style={styles.bloodTypeLetterText}>
+                {selectedBloodTypeLetter.toUpperCase()}
+              </Text>
+              <Text style={styles.weightDisplayUnitText}>
+                {selectedBloodTypeSubText}
+              </Text>
             </View>
-        </MainContent>
-    )
-}
+            <View
+              style={{
+                flexDirection: "row",
+                gap: 8,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {["+", "-"].map((subText, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    ...styles.weightUnitItem,
+                    ...(selectedBloodTypeSubText === subText
+                      ? styles.selectedBloodTypeSubTextItem
+                      : styles.bloodTypeSubTextItem),
+                  }}
+                  onPress={() => setSelectedBloodTypeSubText(subText)}
+                >
+                  <Text
+                    style={{
+                      ...styles.weightUnitItemText,
+                      ...(subText === selectedBloodTypeSubText
+                        ? styles.selectedSubText
+                        : {}),
+                    }}
+                  >
+                    {subText}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        </View>
+        <View style={{ gap: 8 }}>
+          <ButtonUI
+            label="Continue"
+            backgroundColor={"#4B3425"}
+            iconOnRight
+            children={
+              <Iconify
+                icon="solar:arrow-right-bold"
+                color={colors.WHITE}
+                size={20}
+                style={{ position: "absolute", right: 24 }}
+              />
+            }
+            style={{
+              paddingHorizontal: 24,
+              paddingVertical: 16,
+              borderRadius: 1000,
+            }}
+            labelStyle={{
+              marginRight: 24,
+              fontSize: 14,
+              fontFamily: Font.FontBold,
+            }}
+            onPress={() => router.push("/(health-assessment)/blood-type")}
+          />
+          <Text style={styles.footerText}>
+            <Link
+              href="/(health-assessment)/blood-type"
+              style={{ color: colors.ORANGE }}
+            >
+              Skip for now
+            </Link>
+          </Text>
+        </View>
+      </View>
+    </MainContent>
+  );
+};
 
-export default BloodTypeAssessment
+export default BloodType;
 
 const styles = StyleSheet.create({
-    bloodTypeAssessmentContainer: {
-        gap: 64,
-        marginTop: "auto"
-    },
-    headerText: {
-        fontSize: 30,
-        fontFamily: Font.FontBold,
-        lineHeight: 38,
-        letterSpacing: -0.9,
-        textAlign: "center",
-        color: colors.BROWN,
-    },
-    bloodTypeItemContainer: {
-        flex: 1,
-        height: 190,
-        minWidth: 150,
-        padding: 16,
-        borderRadius: 24,
-        gap: 10,
-        backgroundColor: colors.ACCENT_BACKGROUND,
-        justifyContent: "center",
-        alignItems: "center",
-        marginHorizontal: 10
-    },
-    bloodTypeItemSelectedContainer: {
-        borderWidth: 1,
-        borderColor: colors.PRIMARY,
-        backgroundColor: `${colors.PRIMARY}60`
-    },
-    bloodTypeText: {
-        fontFamily: Font.FontBold,
-        fontSize: 100,
-        color: colors.FOREGROUND,
-        lineHeight: 188,
-        letterSpacing: -0.7
-    },
-    bloodTypeIcon: {
-        position: "absolute",
-        top: 16,
-        right: 16
-    },
-    formItemContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: 10
-    }
-})
+  ...WeightAssessmentStyles,
+  weightDisplayAndInputContainer: {
+    gap: 32,
+  },
+  weightDisplayContainer: {
+    ...WeightAssessmentStyles.weightDisplayContainer,
+    alignItems: "center",
+  },
+  bloodTypeLetterText: {
+    ...WeightAssessmentStyles.weightDisplayText,
+    fontSize: 180,
+    fontFamily: Font.FontExtraBold,
+    letterSpacing: -12.6,
+    lineHeight: 188,
+  },
+  bloodTypeSubTextItem: {
+    borderWidth: 4,
+    borderColor: colors.WHITE,
+    backgroundColor: colors.WHITE,
+  },
+  selectedBloodTypeSubTextItem: {
+    backgroundColor: colors.GREEN,
+    borderWidth: 4,
+    borderColor: hexToRGBA("#9BB068", 0.25),
+  },
+  selectedSubText: {
+    color: colors.WHITE,
+    fontSize: 20,
+    fontFamily: Font.FontBold,
+  },
+});

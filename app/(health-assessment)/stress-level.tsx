@@ -8,7 +8,7 @@ import ButtonUI from "@/components/Button";
 import Iconify from "react-native-iconify";
 import { Link, router } from "expo-router";
 
-const SleepQuality = () => {
+const StressLevel = () => {
   return (
     <MainContent
       isPadded
@@ -23,7 +23,7 @@ const SleepQuality = () => {
     >
       <View style={styles.weightAssessmentContainer}>
         <Text style={styles.headerText}>
-          How would you rate your sleep quality?
+          How would you rate your stress level?
         </Text>
         <View style={{ gap: 8 }}>
           <ButtonUI
@@ -64,7 +64,7 @@ const SleepQuality = () => {
   );
 };
 
-export default SleepQuality;
+export default StressLevel;
 
 const styles = StyleSheet.create({
   ...WeightAssessmentStyles,

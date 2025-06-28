@@ -8,10 +8,12 @@ const HealthAssessmentLayout = () => {
             headerShown: false
         }}>
             <Stack.Screen name="index" />
+            <Stack.Screen name="stress-level" />
             <Stack.Screen name="blood-type" />
             <Stack.Screen name="sleep-quality" />
             <Stack.Screen name="fitness-level" />
             <Stack.Screen name="medical-conditions" />
+            <Stack.Screen name="medications-question" />
             <Stack.Screen name="medications" />
         </Stack>
     )
