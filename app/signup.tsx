@@ -48,8 +48,8 @@ const Signup = () => {
   });
 
   return (
-    <MainContent style={{ backgroundColor: colors.WHITE, paddingBottom: 20 }}>
-      <View style={styles.mainContainer}>
+    <MainContent isPadded keyboardAware>
+      <View style={{ ...styles.mainContainer, justifyContent: "center" }}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>
             Sign up to{" "}
@@ -66,7 +66,7 @@ const Signup = () => {
             <Input
               leadingAccessory={
                 <Iconify
-                  icon="solar:letter-outline"
+                  icon="solar:user-outline"
                   style={{ marginRight: 10 }}
                   size={16}
                   color={colors.BLACK}
@@ -230,33 +230,33 @@ const Signup = () => {
               }
             />
           </FormControl>
-        </View>
-        <View style={styles.dividerContainer}>
-          <View style={styles.divider} />
-          <Text style={{ color: "#ddd" }}>OR</Text>
-          <View style={styles.divider} />
-        </View>
-        <View style={styles.oAuthContainer}>
-          <ButtonUI
-            style={{
-              ...styles.submitBtn,
-              backgroundColor: colors.WHITE,
-              borderWidth: 1,
-              borderColor: colors.LIGHT_GRAY,
-              boxShadow:
-                "rgba(0, 0, 0, 0.1) 1px 1px 1px -1px, rgba(0, 0, 0, 0.06) 1px 1px 1px -1px",
-              width: "100%",
-            }}
-            labelStyle={{
-              marginLeft: 24,
-              fontSize: 14,
-              fontFamily: Font.FontBold,
-              color: colors.BLACK,
-            }}
-            backgroundColor={colors.WHITE}
-            label="Continue with google"
-            children={<Iconify icon="logos:google-icon" size={20} />}
-          />
+          <View style={styles.dividerContainer}>
+            <View style={styles.divider} />
+            <Text style={{ color: "#ddd", fontSize: 10 }}>OR</Text>
+            <View style={styles.divider} />
+          </View>
+          <View style={styles.oAuthContainer}>
+            <ButtonUI
+              style={{
+                ...styles.submitBtn,
+                backgroundColor: colors.WHITE,
+                borderWidth: 1,
+                borderColor: colors.LIGHT_GRAY,
+                boxShadow:
+                  "rgba(0, 0, 0, 0.1) 1px 1px 1px -1px, rgba(0, 0, 0, 0.06) 1px 1px 1px -1px",
+                width: "100%",
+              }}
+              labelStyle={{
+                marginLeft: 24,
+                fontSize: 14,
+                fontFamily: Font.FontBold,
+                color: colors.BLACK,
+              }}
+              backgroundColor={colors.WHITE}
+              label="Continue with google"
+              children={<Iconify icon="logos:google-icon" size={20} />}
+            />
+          </View>
         </View>
       </View>
       <View>

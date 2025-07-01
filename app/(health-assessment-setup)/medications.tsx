@@ -25,7 +25,18 @@ const Medications = () => {
     initialValues: {
       medications: [],
     },
-    onSubmit: () => router.push("/successful-completion"),
+    onSubmit: () =>
+      router.push(
+        {
+          pathname: "/successful-completion",
+          params: {
+            message:
+              "You've successfully completed your health assessment setup. You can now start tracking your health data and get insights into your well-being.",
+            routeName: "(tabs)",
+          },
+        },
+        {}
+      ),
   });
 
   const [search, setSearch] = React.useState("");
@@ -56,7 +67,9 @@ const Medications = () => {
       isPadded
       showTopNav
       showBackButton
-      toolbar={<ProgressBar currentStep={6} totalSteps={7} />}
+      scroll
+      keyboardAware
+      toolbar={<ProgressBar currentStep={6} totalSteps={6} />}
     >
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>

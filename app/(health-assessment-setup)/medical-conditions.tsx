@@ -32,7 +32,9 @@ const MedicalConditions = () => {
       isPadded
       showTopNav
       showBackButton
-      toolbar={<ProgressBar currentStep={5} totalSteps={7} />}
+      scroll
+      keyboardAware
+      toolbar={<ProgressBar currentStep={5} totalSteps={6} />}
     >
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>

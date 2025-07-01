@@ -65,7 +65,8 @@ const Gender = () => {
     <MainContent
       isPadded
       showTopNav
-      toolbar={<ProgressBar currentStep={1} totalSteps={7} />}
+      showBackButton
+      toolbar={<ProgressBar currentStep={1} totalSteps={6} />}
     >
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>

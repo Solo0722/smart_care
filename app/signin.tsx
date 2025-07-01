@@ -38,8 +38,8 @@ const Signin = () => {
   });
 
   return (
-    <MainContent isPadded>
-      <View style={styles.mainContainer}>
+    <MainContent isPadded keyboardAware>
+      <View style={{ ...styles.mainContainer, justifyContent: "center" }}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>
             Sign in to{" "}
@@ -145,33 +145,33 @@ const Signin = () => {
               }
             />
           </FormControl>
-        </View>
-        <View style={styles.dividerContainer}>
-          <View style={styles.divider} />
-          <Text style={{ color: "#ddd" }}>OR</Text>
-          <View style={styles.divider} />
-        </View>
-        <View style={styles.oAuthContainer}>
-          <ButtonUI
-            style={{
-              ...styles.submitBtn,
-              backgroundColor: colors.WHITE,
-              borderWidth: 1,
-              borderColor: colors.LIGHT_GRAY,
-              boxShadow:
-                "rgba(0, 0, 0, 0.1) 1px 1px 1px -1px, rgba(0, 0, 0, 0.06) 1px 1px 1px -1px",
-              width: "100%",
-            }}
-            labelStyle={{
-              marginLeft: 24,
-              fontSize: 14,
-              fontFamily: Font.FontBold,
-              color: colors.BLACK,
-            }}
-            backgroundColor={colors.WHITE}
-            label="Continue with google"
-            children={<Iconify icon="logos:google-icon" size={20} />}
-          />
+          <View style={styles.dividerContainer}>
+            <View style={styles.divider} />
+            <Text style={{ color: "#ddd", fontSize: 10 }}>OR</Text>
+            <View style={styles.divider} />
+          </View>
+          <View style={styles.oAuthContainer}>
+            <ButtonUI
+              style={{
+                ...styles.submitBtn,
+                backgroundColor: colors.WHITE,
+                borderWidth: 1,
+                borderColor: colors.LIGHT_GRAY,
+                boxShadow:
+                  "rgba(0, 0, 0, 0.1) 1px 1px 1px -1px, rgba(0, 0, 0, 0.06) 1px 1px 1px -1px",
+                width: "100%",
+              }}
+              labelStyle={{
+                marginLeft: 24,
+                fontSize: 14,
+                fontFamily: Font.FontBold,
+                color: colors.BLACK,
+              }}
+              backgroundColor={colors.WHITE}
+              label="Continue with google"
+              children={<Iconify icon="logos:google-icon" size={20} />}
+            />
+          </View>
         </View>
       </View>
       <View style={{ gap: 5 }}>
@@ -198,7 +198,7 @@ export const styles = StyleSheet.create({
     width: "100%",
   },
   headerContainer: {
-    gap: 12,
+    gap: 6,
     width: "100%",
   },
   headerText: {

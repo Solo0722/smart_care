@@ -8,6 +8,8 @@ import Text from "@/components/Text";
 import { resetNavigation } from "@/services/uiService";
 import { useNavigation } from "expo-router";
 import { useRoute } from "@react-navigation/native";
+import { styles as SigninStyles } from "@/app/signin";
+import Iconify from "react-native-iconify";
 
 const SuccessfulCompletion = () => {
   const navigation = useNavigation();
@@ -15,7 +17,7 @@ const SuccessfulCompletion = () => {
   const animation = useRef<LottieView>(null);
   const params = route?.params as any;
   return (
-    <MainContent isPadded>
+    <MainContent isPadded showTopNav showBackButton>
       <View
         style={{
           flex: 1,
@@ -35,7 +37,7 @@ const SuccessfulCompletion = () => {
           source={require("../assets/animations/success.json")}
         />
         <Text style={styles.text}>
-          {params?.message ||
+          {params?.message ??
             "Yayy. You're all set. Now let's get to know some of your health info. Click the button below to continue"}
         </Text>
         <ButtonUI
@@ -44,11 +46,25 @@ const SuccessfulCompletion = () => {
           onPress={() =>
             resetNavigation(navigation, [
               {
-                name: params?.routeName || "(health-assessment-setup)",
-                key: params?.routeName || "(health-assessment-setup)",
+                name: params?.routeName ?? "(health-assessment-setup)",
+                key: params?.routeName ?? "(health-assessment-setup)",
               },
             ])
           }
+          children={
+            <Iconify
+              icon="solar:arrow-right-bold"
+              color={colors.WHITE}
+              size={20}
+              style={{ position: "absolute", right: 24 }}
+            />
+          }
+          labelStyle={{
+            marginRight: 24,
+            fontSize: 14,
+            fontFamily: Font.FontBold,
+          }}
+          style={styles.submitBtn}
         />
       </View>
     </MainContent>
@@ -58,6 +74,7 @@ const SuccessfulCompletion = () => {
 export default SuccessfulCompletion;
 
 const styles = StyleSheet.create({
+  ...SigninStyles,
   text: {
     fontSize: 12,
     width: "70%",

@@ -110,7 +110,7 @@ const BloodType = () => {
       isPadded
       showTopNav
       showBackButton
-      toolbar={<ProgressBar currentStep={4} totalSteps={7} />}
+      toolbar={<ProgressBar currentStep={4} totalSteps={6} />}
     >
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>

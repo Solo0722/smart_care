@@ -31,7 +31,8 @@ const Weight = () => {
       isPadded
       showTopNav
       showBackButton
-      toolbar={<ProgressBar currentStep={3} totalSteps={7} />}
+      keyboardAware
+      toolbar={<ProgressBar currentStep={3} totalSteps={6} />}
     >
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
