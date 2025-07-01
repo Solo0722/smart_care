@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import MainContent from "@/components/MainContent";
-import { styles as SignupStyles } from "../signup";
+import { styles as SigninStyles } from "../signin";
 import { ErrorLabel, FormControl } from "@/components/Form";
 import ButtonUI from "@/components/Button";
 import { colors, Font } from "@/constants/theme";
@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import Iconify from "react-native-iconify";
 import { router } from "expo-router";
+import { ProgressBar } from "@/components/ProgressBar";
 
 export const genderSchema = yup.object().shape({
   gender: yup.string().oneOf(["male", "female"]).required(),
@@ -46,16 +47,14 @@ const Gender = () => {
     >
       <View>
         <Text style={styles.genderText}>{gender.label}</Text>
-        <Text style={styles.subText}>{gender.subText}</Text>
+        <Text>{gender.subText}</Text>
       </View>
       <View style={styles.genderIcon}>
         <Iconify
           icon={gender.value === "male" ? "famicons:male" : "famicons:female"}
           size={60}
           color={
-            gender.value === formik.values.gender
-              ? colors.PRIMARY
-              : colors.ACCENT_FOREGROUND
+            gender.value === formik.values.gender ? colors.ORANGE : colors.BLACK
           }
         />
       </View>
@@ -63,32 +62,55 @@ const Gender = () => {
   );
 
   return (
-    <MainContent isPadded>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Select your gender</Text>
-        <Text style={styles.subText}>
-          Please answer truthfully so our AI we can assess better..
-        </Text>
-      </View>
-      <View style={styles.formContainer}>
-        <FormControl>
+    <MainContent
+      isPadded
+      showTopNav
+      toolbar={<ProgressBar currentStep={1} totalSteps={7} />}
+    >
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>
+            Select your{" "}
+            <Text style={{ ...styles.headerText, color: colors.ORANGE }}>
+              gender
+            </Text>
+          </Text>
+          <Text style={styles.subHeaderText}>
+            Please answer truthfully so our AI we can assess better
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
           <FormControl>
             <View style={styles.formItemContainer}>
-              {genders.map((gender, index) => renderGenderItem(gender))}
+              {genders.map((gender) => renderGenderItem(gender))}
             </View>
 
             {formik.touched?.gender && formik.errors?.gender && (
               <ErrorLabel>{formik.errors.gender}</ErrorLabel>
             )}
           </FormControl>
-          <FormControl style={{ marginTop: 20 }}>
+          <FormControl>
             <ButtonUI
               label="Continue"
-              backgroundColor={colors.PRIMARY}
+              backgroundColor={colors.TEAL}
               onPress={formik.handleSubmit}
+              style={styles.submitBtn}
+              labelStyle={{
+                marginRight: 24,
+                fontSize: 14,
+                fontFamily: Font.FontBold,
+              }}
+              children={
+                <Iconify
+                  icon="solar:arrow-right-bold"
+                  color={colors.WHITE}
+                  size={20}
+                  style={{ position: "absolute", right: 24 }}
+                />
+              }
             />
           </FormControl>
-        </FormControl>
+        </View>
       </View>
     </MainContent>
   );
@@ -97,7 +119,7 @@ const Gender = () => {
 export default Gender;
 
 const styles = StyleSheet.create({
-  ...SignupStyles,
+  ...SigninStyles,
   genderItemContainer: {
     flex: 1,
     height: 220,
@@ -109,8 +131,8 @@ const styles = StyleSheet.create({
   },
   genderItemSelectedContainer: {
     borderWidth: 1,
-    borderColor: colors.PRIMARY,
-    backgroundColor: `${colors.PRIMARY}60`,
+    borderColor: colors.ORANGE,
+    backgroundColor: `${colors.ORANGE}60`,
   },
   genderText: {
     fontFamily: Font.FontBold,
@@ -124,6 +146,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 10,
+    gap: 16,
   },
 });

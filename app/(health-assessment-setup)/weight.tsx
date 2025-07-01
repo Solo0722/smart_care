@@ -1,56 +1,95 @@
-import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import MainContent from '@/components/MainContent'
-import { styles as SignupStyles } from '../signup';
-import { ErrorLabel, FormControl } from '@/components/Form';
-import ButtonUI from '@/components/Button';
-import { colors, Font } from '@/constants/theme';
-import * as yup from 'yup';
-import { useFormik } from 'formik';
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import MainContent from "@/components/MainContent";
+import { styles as SigninStyles } from "../signin";
+import { ErrorLabel, FormControl } from "@/components/Form";
+import ButtonUI from "@/components/Button";
+import { colors, Font } from "@/constants/theme";
+import * as yup from "yup";
+import { useFormik } from "formik";
 import { BlurView as _BlurView } from "expo-blur";
-import { NumberInput } from 'react-native-ui-lib';
-import Input from '@/components/Input';
-import { router } from 'expo-router';
+import Input from "@/components/Input";
+import { router } from "expo-router";
+import { ProgressBar } from "@/components/ProgressBar";
+import Iconify from "react-native-iconify";
 
 export const weightSchema = yup.object().shape({
-    weight: yup.string().required(),
-})
+  weight: yup.string().required(),
+});
 
 const Weight = () => {
-    const formik = useFormik({
-        validationSchema: weightSchema,
-        initialValues: {
-            weight: "",
-        },
-        onSubmit: () => router.push("/(health-assessment-setup)/blood-type")
-    })
+  const formik = useFormik({
+    validationSchema: weightSchema,
+    initialValues: {
+      weight: "",
+    },
+    onSubmit: () => router.push("/(health-assessment-setup)/blood-type"),
+  });
 
-    return (
-        <MainContent isPadded>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Select your weight</Text>
-                <Text style={styles.subText}>Please answer truthfully so our AI we can assess better..</Text>
-            </View>
-            <View style={styles.formContainer}>
-                <FormControl>
+  return (
+    <MainContent
+      isPadded
+      showTopNav
+      showBackButton
+      toolbar={<ProgressBar currentStep={3} totalSteps={7} />}
+    >
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>
+            Select your{" "}
+            <Text style={{ ...styles.headerText, color: colors.ORANGE }}>
+              weight
+            </Text>
+          </Text>
+          <Text style={styles.subHeaderText}>
+            Please answer truthfully so our AI we can assess better
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
+          <FormControl>
+            <Input
+              placeholder="53"
+              label="Your weight"
+              textContentType="telephoneNumber"
+              keyboardType="decimal-pad"
+              onChangeText={formik.handleChange("weight")}
+              onBlur={formik.handleBlur("weight")}
+              value={formik.values.weight}
+              trailingAccessory={<Text>KG</Text>}
+            />
+            {formik.touched?.weight && formik.errors?.weight && (
+              <ErrorLabel>{formik.errors.weight}</ErrorLabel>
+            )}
+          </FormControl>
+          <FormControl>
+            <ButtonUI
+              label="Continue"
+              backgroundColor={colors.TEAL}
+              onPress={formik.handleSubmit}
+              style={styles.submitBtn}
+              labelStyle={{
+                marginRight: 24,
+                fontSize: 14,
+                fontFamily: Font.FontBold,
+              }}
+              children={
+                <Iconify
+                  icon="solar:arrow-right-bold"
+                  color={colors.WHITE}
+                  size={20}
+                  style={{ position: "absolute", right: 24 }}
+                />
+              }
+            />
+          </FormControl>
+        </View>
+      </View>
+    </MainContent>
+  );
+};
 
-                    <FormControl>
-                        <Input placeholder="53" label='Your weight' textContentType='telephoneNumber' keyboardType='decimal-pad' onChangeText={formik.handleChange('weight')} onBlur={formik.handleBlur('weight')} value={formik.values.weight} trailingAccessory={<Text>KG</Text>} />
-                        {
-                            formik.touched?.weight && formik.errors?.weight && <ErrorLabel>{formik.errors.weight}</ErrorLabel>
-                        }
-                    </FormControl>
-                    <FormControl style={{ marginTop: 20 }}>
-                        <ButtonUI label="Continue" backgroundColor={colors.PRIMARY} onPress={formik.handleSubmit} />
-                    </FormControl>
-                </FormControl>
-            </View>
-        </MainContent>
-    )
-}
-
-export default Weight
+export default Weight;
 
 const styles = StyleSheet.create({
-    ...SignupStyles
-})
+  ...SigninStyles,
+});

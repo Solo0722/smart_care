@@ -1,16 +1,18 @@
-import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import React, { useMemo, useState } from "react";
-import { styles as SignupStyles } from "../signup";
+import { StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
+import React, { useState } from "react";
+import { styles as SigninStyles } from "../signin";
 import MainContent from "@/components/MainContent";
 import { ErrorLabel, FormControl } from "@/components/Form";
 import ButtonUI from "@/components/Button";
-import { colors } from "@/constants/theme";
+import { colors, Font } from "@/constants/theme";
 import { router } from "expo-router";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { diseases } from "@/shared/shared";
 import Text from "@/components/Text";
-import { truncate } from "lodash";
+import { ProgressBar } from "@/components/ProgressBar";
+import AllergiesSvg from "@/assets/svgs/allergies.svg";
+import Iconify from "react-native-iconify";
+import { hexToRGBA } from "@/services/uiService";
 
 export const medicalConditionsSchema = yup.object().shape({
   medicalConditions: yup.array().of(yup.string()).min(1).required(),
@@ -21,92 +23,115 @@ const MedicalConditions = () => {
     initialValues: {
       medicalConditions: [],
     },
-    onSubmit: () => router.push("/(health-assessment-setup)/allergies"),
+    onSubmit: () => router.push("/(health-assessment-setup)/medications"),
   });
-  console.log(formik.values.medicalConditions);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const diseasesData = useMemo(() => {
-    return diseases.filter(
-      (data) =>
-        data.filter((d) => d.toLowerCase().includes(searchTerm.toLowerCase()))
-          .length > 0
-    );
-  }, [searchTerm]);
-
-  const checkIsSelected = (item: string) => {
-    return formik.values.medicalConditions.includes(item);
-  };
-
-  const handleItemPress = (item: string) => {
-    console.log(item);
-    if (formik.values.medicalConditions.includes(item)) {
-      formik.setFieldValue(
-        "medicalConditions",
-        formik.values.medicalConditions.filter((i) => i !== item)
-      );
-    } else {
-      formik.setFieldValue("medicalConditions", [
-        ...formik.values.medicalConditions,
-        item,
-      ]);
-    }
-  };
-
-  const renderItem = ({ item }: { item: string }) => (
-    <TouchableOpacity
-      key={item}
-      style={[
-        styles.itemContainer,
-        checkIsSelected(item) && styles.itemSelectedContainer,
-      ]}
-      onPress={() => handleItemPress(item)}
-    >
-      <Text
-        style={{
-          ...styles.subText,
-          color: checkIsSelected(item)
-            ? colors.PRIMARY
-            : colors.ACCENT_FOREGROUND,
-        }}
-      >
-        {truncate(item, { length: 20 })}
-      </Text>
-    </TouchableOpacity>
-  );
-
   return (
-    <MainContent isPadded>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>
-          Specify current medical conditions
-        </Text>
-        <Text style={styles.subText}>
-          Sign up to create an account and get started.Sign up to get started.
-        </Text>
-      </View>
-      <View style={styles.formContainer}>
-        <FormControl>
+    <MainContent
+      isPadded
+      showTopNav
+      showBackButton
+      toolbar={<ProgressBar currentStep={5} totalSteps={7} />}
+    >
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>
+            Specify your{" "}
+            <Text style={{ ...styles.headerText, color: colors.ORANGE }}>
+              medical conditions
+            </Text>{" "}
+            or{" "}
+            <Text style={{ ...styles.headerText, color: colors.ORANGE }}>
+              allergies
+            </Text>
+          </Text>
+          <Text style={styles.subHeaderText}>
+            Please answer truthfully so our AI we can assess better
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
           <FormControl>
-            <ScrollView
-              horizontal
-              contentContainerStyle={{
-                alignItems: "center",
-                justifyContent: "center",
+            <AllergiesSvg />
+          </FormControl>
+          <FormControl>
+            <View
+              style={{
+                borderRadius: 16,
+                padding: 16,
+                backgroundColor: colors.LIGHT_GRAY,
+                minHeight: 150,
               }}
-              style={{ marginHorizontal: -20 }}
             >
-              <View>
-                {diseasesData.map((data) => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                }}
+              >
+                {formik.values.medicalConditions.map((cond, idx) => (
                   <View
-                    key={data[0]}
-                    style={{ flexDirection: "row", flexWrap: "wrap" }}
+                    key={idx}
+                    style={{
+                      backgroundColor: hexToRGBA(colors.TEAL, 0.1),
+                      borderRadius: 8,
+                      paddingHorizontal: 10,
+                      paddingVertical: 6,
+                      marginRight: 8,
+                      marginBottom: 8,
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
                   >
-                    {data.flat(1).map((item, index) => renderItem({ item }))}
+                    <Text
+                      style={{
+                        color: colors.TEAL,
+                        fontSize: 9,
+                        fontFamily: Font.FontBold,
+                      }}
+                    >
+                      {cond}
+                    </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        const newTags = formik.values.medicalConditions.filter(
+                          (_, i) => i !== idx
+                        );
+                        formik.setFieldValue("medicalConditions", newTags);
+                      }}
+                      style={{ marginLeft: 6 }}
+                    >
+                      <Text
+                        style={{
+                          color: colors.ORANGE,
+                          fontFamily: Font.FontBold,
+                        }}
+                      >
+                        ×
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 ))}
+                <TextInput
+                  value={searchTerm}
+                  onChangeText={setSearchTerm}
+                  placeholder="Type and press Enter"
+                  style={{ minWidth: 60, flex: 1, padding: 0 }}
+                  onSubmitEditing={() => {
+                    if (searchTerm.trim()) {
+                      formik.setFieldValue("medicalConditions", [
+                        ...formik.values.medicalConditions,
+                        searchTerm.trim(),
+                      ]);
+                      setSearchTerm("");
+                    }
+                  }}
+                  blurOnSubmit={false}
+                  returnKeyType="done"
+                />
               </View>
-            </ScrollView>
+            </View>
             {formik.touched?.medicalConditions &&
               formik.errors?.medicalConditions && (
                 <ErrorLabel>{formik.errors.medicalConditions}</ErrorLabel>
@@ -115,11 +140,25 @@ const MedicalConditions = () => {
           <FormControl>
             <ButtonUI
               label="Continue"
-              backgroundColor={colors.PRIMARY}
+              backgroundColor={colors.TEAL}
               onPress={formik.handleSubmit}
+              style={styles.submitBtn}
+              labelStyle={{
+                marginRight: 24,
+                fontSize: 14,
+                fontFamily: Font.FontBold,
+              }}
+              children={
+                <Iconify
+                  icon="solar:arrow-right-bold"
+                  color={colors.WHITE}
+                  size={20}
+                  style={{ position: "absolute", right: 24 }}
+                />
+              }
             />
           </FormControl>
-        </FormControl>
+        </View>
       </View>
     </MainContent>
   );
@@ -128,23 +167,5 @@ const MedicalConditions = () => {
 export default MedicalConditions;
 
 const styles = StyleSheet.create({
-  ...SignupStyles,
-  itemContainer: {
-    borderRadius: 12,
-    backgroundColor: colors.LIGHT_GRAY,
-    height: 48,
-    // width: 77,
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 4,
-    borderWidth: 1,
-    borderColor: colors.LIGHT_GRAY,
-  },
-  itemSelectedContainer: {
-    borderWidth: 1,
-    borderColor: colors.PRIMARY,
-    backgroundColor: `${colors.PRIMARY}60`,
-  },
+  ...SigninStyles,
 });

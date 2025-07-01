@@ -10,9 +10,10 @@ export enum Font {
 
 export const colors = {
   WHITE: "#FFFFFF",
-  BLACK: "#000000",
-  ORANGE: "#FE814B",
-  TEAL: "#005f5b",
-  LIGHT_GRAY: "#F6F6F8",
-  GRAY: "#778B8F",
+  BLACK: "#212529",
+  ORANGE: "#F97316",
+  TEAL: "#008080",
+  LIGHT_GRAY: "#E9ECEF",
+  GRAY: "#495057",
+  TERTIARY: "#A9A9A9",
 };

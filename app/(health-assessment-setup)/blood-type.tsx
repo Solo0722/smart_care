@@ -1,6 +1,5 @@
 import {
   Dimensions,
-  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,25 +7,22 @@ import {
 } from "react-native";
 import React from "react";
 import MainContent from "@/components/MainContent";
-import { styles as SignupStyles } from "../signup";
+import { styles as SigninStyles } from "../signin";
 import { ErrorLabel, FormControl } from "@/components/Form";
 import ButtonUI from "@/components/Button";
 import { colors, Font } from "@/constants/theme";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import Iconify from "react-native-iconify";
 import Carousel from "react-native-reanimated-carousel";
 import Animated, {
   interpolate,
   SharedValue,
   useAnimatedStyle,
-  useSharedValue,
 } from "react-native-reanimated";
 import { BlurView as _BlurView } from "expo-blur";
-import { parallaxLayout } from "@/services/uiService";
 import { router } from "expo-router";
-
-const BlurView = Animated.createAnimatedComponent(_BlurView);
+import { ProgressBar } from "@/components/ProgressBar";
+import Iconify from "react-native-iconify";
 
 export const bloodTypeSchema = yup.object().shape({
   bloodType: yup
@@ -108,18 +104,27 @@ const BloodType = () => {
       </Animated.View>
     );
   };
-  const progress = useSharedValue<number>(0);
 
   return (
-    <MainContent isPadded>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Select your blood type</Text>
-        <Text style={styles.subText}>
-          Please answer truthfully so our AI we can assess better..
-        </Text>
-      </View>
-      <View style={styles.formContainer}>
-        <FormControl>
+    <MainContent
+      isPadded
+      showTopNav
+      showBackButton
+      toolbar={<ProgressBar currentStep={4} totalSteps={7} />}
+    >
+      <View style={styles.mainContainer}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>
+            Select your{" "}
+            <Text style={{ ...styles.headerText, color: colors.ORANGE }}>
+              blood type
+            </Text>
+          </Text>
+          <Text style={styles.subHeaderText}>
+            Please answer truthfully so our AI we can assess better
+          </Text>
+        </View>
+        <View style={styles.formContainer}>
           <FormControl>
             <View style={styles.formItemContainer}>
               <Carousel
@@ -146,11 +151,25 @@ const BloodType = () => {
           <FormControl style={{ marginTop: 20 }}>
             <ButtonUI
               label="Continue"
-              backgroundColor={colors.PRIMARY}
+              backgroundColor={colors.TEAL}
               onPress={formik.handleSubmit}
+              style={styles.submitBtn}
+              labelStyle={{
+                marginRight: 24,
+                fontSize: 14,
+                fontFamily: Font.FontBold,
+              }}
+              children={
+                <Iconify
+                  icon="solar:arrow-right-bold"
+                  color={colors.WHITE}
+                  size={20}
+                  style={{ position: "absolute", right: 24 }}
+                />
+              }
             />
           </FormControl>
-        </FormControl>
+        </View>
       </View>
     </MainContent>
   );
@@ -159,7 +178,7 @@ const BloodType = () => {
 export default BloodType;
 
 const styles = StyleSheet.create({
-  ...SignupStyles,
+  ...SigninStyles,
   bloodTypeItemContainer: {
     flex: 1,
     height: 190,
@@ -174,13 +193,13 @@ const styles = StyleSheet.create({
   },
   bloodTypeItemSelectedContainer: {
     borderWidth: 1,
-    borderColor: colors.PRIMARY,
-    backgroundColor: `${colors.PRIMARY}60`,
+    borderColor: colors.ORANGE,
+    backgroundColor: `${colors.ORANGE}60`,
   },
   bloodTypeText: {
     fontFamily: Font.FontBold,
     fontSize: 100,
-    color: colors.FOREGROUND,
+    color: colors.BLACK,
     lineHeight: 188,
     letterSpacing: -0.7,
   },

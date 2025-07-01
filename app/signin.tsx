@@ -1,11 +1,4 @@
-import {
-  Platform,
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Pressable, StatusBar, StyleSheet, View } from "react-native";
 import React, { useEffect } from "react";
 import MainContent from "@/components/MainContent";
 import { colors, Font } from "@/constants/theme";
@@ -18,9 +11,7 @@ import { Link } from "expo-router";
 import Iconify from "react-native-iconify";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import FreudArc from "@/assets/images/freud-arc.svg";
 import { hexToRGBA } from "@/services/uiService";
-import { oAuths } from "@/constants/constants";
 
 const signinSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -47,7 +38,7 @@ const Signin = () => {
   });
 
   return (
-    <MainContent style={{ backgroundColor: colors.WHITE, paddingBottom: 20 }}>
+    <MainContent isPadded>
       <View style={styles.mainContainer}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>
@@ -201,12 +192,8 @@ const Signin = () => {
 export default Signin;
 
 export const styles = StyleSheet.create({
-  // ...SignUpStyles,
   mainContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
     gap: 48,
     width: "100%",
   },
@@ -228,7 +215,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 28.8,
     letterSpacing: -0.18,
-    color: hexToRGBA(colors.BLACK, 0.64),
+    color: colors.GRAY,
     // textAlign: "center",
   },
   formContainer: {

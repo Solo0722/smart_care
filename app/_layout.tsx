@@ -32,13 +32,13 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const theme = DefaultTheme;
   const [loaded] = useFonts({
-    [Font.FontExtraLight]: require("@/assets/fonts/Urbanist-ExtraLight.ttf"),
-    [Font.FontLight]: require("@/assets/fonts/Urbanist-Light.ttf"),
-    [Font.FontRegular]: require("@/assets/fonts/Urbanist-Regular.ttf"),
-    [Font.FontMedium]: require("@/assets/fonts/Urbanist-Medium.ttf"),
-    [Font.FontSemibold]: require("@/assets/fonts/Urbanist-SemiBold.ttf"),
-    [Font.FontBold]: require("@/assets/fonts/Urbanist-Bold.ttf"),
-    [Font.FontExtraBold]: require("@/assets/fonts/Urbanist-ExtraBold.ttf"),
+    [Font.FontExtraLight]: require("@/assets/fonts/MonaSans-ExtraLight.ttf"),
+    [Font.FontLight]: require("@/assets/fonts/MonaSans-Light.ttf"),
+    [Font.FontRegular]: require("@/assets/fonts/MonaSans-Regular.ttf"),
+    [Font.FontMedium]: require("@/assets/fonts/MonaSans-Medium.ttf"),
+    [Font.FontSemibold]: require("@/assets/fonts/MonaSans-SemiBold.ttf"),
+    [Font.FontBold]: require("@/assets/fonts/MonaSans-Bold.ttf"),
+    [Font.FontExtraBold]: require("@/assets/fonts/MonaSans-ExtraBold.ttf"),
   });
 
   useEffect(() => {
@@ -100,18 +100,6 @@ export default function RootLayout() {
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="welcome" options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="avatar-setup"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="profile-setup"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="signup-completion"
-              options={{ headerShown: false }}
-            />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="signin" options={{ headerShown: false }} />
             <Stack.Screen name="signup" options={{ headerShown: false }} />
@@ -124,20 +112,12 @@ export default function RootLayout() {
               options={{ headerTitle: "" }}
             />
             <Stack.Screen
-              name="profile-completion"
-              options={{ headerTitle: "" }}
-            />
-            <Stack.Screen
               name="successful-completion"
               options={{ headerTitle: "" }}
             />
             <Stack.Screen name="+not-found" options={{ headerTitle: "" }} />
             <Stack.Screen
               name="(health-assessment-setup)"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="(health-assessment)"
               options={{ headerShown: false }}
             />
           </Stack>

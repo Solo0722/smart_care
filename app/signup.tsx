@@ -44,7 +44,7 @@ const Signup = () => {
       password: "",
       termsAccepted: false,
     },
-    onSubmit: () => router.push("/(health-assessment)"),
+    onSubmit: () => router.push("/(health-assessment-setup)"),
   });
 
   return (
